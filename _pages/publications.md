@@ -23,7 +23,7 @@ author_profile: true
 * [Scalable and Safe Multi-Agent Motion Planning with Nonlinear Dynamics and Bounded Disturbances](https://jkchengh.github.io/files/chen2021scalable.pdf).               
     **Jingkai Chen**, Jiaoyang Li, Chuchu Fan, and Brian C. Williams.    
     <i>Proceedings of the Thirty-Fifth AAAI Conference on Artificial Intelligence (**AAAI 2021**)</i>.   
-    [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('bibtex') } else { $('#' + id).show('fast'); $(target).text('bibtex▲') } })(this, 'bibtex-chen2021scalable');">bibtex</a>]
+    [[Google Scholar](https://scholar.google.com/scholar?hl=en&as_sdt=0%2C22&q=Scalable+and+Safe+Multi-Agent+Motion+Planning+with+Nonlinear+Dynamics+and+Bounded+Disturbances&btnG=)][<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('bibtex') } else { $('#' + id).show('fast'); $(target).text('bibtex▲') } })(this, 'bibtex-chen2021scalable');">bibtex</a>]
 <div id="bibtex-chen2021scalable" style="display:none">X
 <pre>
 @inproceedings{chen2021scalable,
@@ -50,7 +50,7 @@ author_profile: true
 }
 </pre></div>
 * [Fast Execution of Temporal Plans with Mixed Discrete-Continuous State Constraints](https://jkchengh.github.io/files/chen2019fast.pdf).               
-    **Jingkai Chen**. <i>Master Thesis</i>.   
+    **Jingkai Chen**. <i>Master Thesis</i>.
     [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('bibtex') } else { $('#' + id).show('fast'); $(target).text('bibtex▲') } })(this, 'bibtex-chen2019fast');">bibtex</a>]
 <div id="bibtex-chen2019fast" style="display:none">
 <pre>
