@@ -50,8 +50,7 @@ author_profile: true
 }
 </pre></div>
 * [Fast Execution of Temporal Plans with Mixed Discrete-Continuous State Constraints](https://jkchengh.github.io/files/chen2019fast.pdf).               
-    **Jingkai Chen**.    
-    <i>Master Thesis</i>.   
+    **Jingkai Chen**. <i>Master Thesis</i>.   
     [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('bibtex') } else { $('#' + id).show('fast'); $(target).text('bibtex▲') } })(this, 'bibtex-chen2019fast');">bibtex</a>]
 <div id="bibtex-chen2019fast" style="display:none">
 <pre>
@@ -61,6 +60,7 @@ author_profile: true
   year={2019},
   school={Massachusetts Institute of Technology}
 }
+</pre></div>
 * [RADMAX: Risk and Deadline Aware Planning for Maximum Utility](https://jkchengh.github.io/files/chen2018radmax.pdf).               
     **Jingkai Chen**, Cheng Fang, Christian J. Muise, Howard Shrobe, Brian C. Williams, Peng Yu.    
     <i>AAAI Workshop on Artificial Intelligence for Cyber Security (**AICS-2018**)</i>.   
