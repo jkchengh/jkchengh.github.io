@@ -10,7 +10,7 @@ author_profile: true
 
 * [Optimal Mixed Discrete-Continuous Planning for  Linear Hybrid Systems](https://jkchengh.github.io/files/chen2021optimal.pdf "Download pdf").   
     **Jingkai Chen**, Brian C. Williams, and Chuchu Fan.  
-    <i>Proceedings of the Thirty-Fifth AAAI Conference on Artificial Intelligence (**AAAI 2021**)</i>.   
+    <i>The 24th ACM International Conference on Hybrid Systems: Computation and Control (**HSCC 2021**)</i>.   
    [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('bibtex') } else { $('#' + id).show('fast'); $(target).text('bibtex▲') } })(this, 'bibtex-chen2021optimal');">bibtex</a>]
 <div id="bibtex-chen2021optimal" style="display:none">
 <pre>@inproceedings{chen2021optimal,
@@ -36,8 +36,8 @@ author_profile: true
 * [Efficiently Exploring Ordering Problems through Conflict-directed Search](https://jkchengh.github.io/files/chen2019efficiently.pdf).               
     **Jingkai Chen**, Cheng Fang, David Wang, Andrew Wang, and Brian C. Williams.    
     <i>Proceedings of the Thirty-Fifth AAAI Conference on Artificial Intelligence (**ICAPS 2019**)</i>.   
-    [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('bibtex') } else { $('#' + id).show('fast'); $(target).text('bibtex▲') } })(this, 'bibtex-chen2021efficiently');">bibtex</a>]
-<div id="bibtex-chen2021efficiently" style="display:none">
+    [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('bibtex') } else { $('#' + id).show('fast'); $(target).text('bibtex▲') } })(this, 'bibtex-chen2019efficiently');">bibtex</a>]
+<div id="bibtex-chen2019efficiently" style="display:none">
 <pre>
 @inproceedings{chen2019efficiently,
   title={Efficiently Exploring Ordering Problems through Conflict-Directed Search},
@@ -49,7 +49,31 @@ author_profile: true
   year={2019}
 }
 </pre></div>
-
+* [Fast Execution of Temporal Plans with Mixed Discrete-Continuous State Constraints](https://jkchengh.github.io/files/chen2019fast.pdf).               
+    **Jingkai Chen**.    
+    <i>Master Thesis</i>.   
+    [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('bibtex') } else { $('#' + id).show('fast'); $(target).text('bibtex▲') } })(this, 'bibtex-chen2019fast');">bibtex</a>]
+<div id="bibtex-chen2019fast" style="display:none">
+<pre>
+@masterthesis{chen2019fast,
+  title={Fast execution of temporal plans with mixed discrete-continuous state constraints},
+  author={Chen, Jingkai},
+  year={2019},
+  school={Massachusetts Institute of Technology}
+}
+* [RADMAX: Risk and Deadline Aware Planning for Maximum Utility](https://jkchengh.github.io/files/chen2018radmax.pdf).               
+    **Jingkai Chen**, Cheng Fang, Christian J. Muise, Howard Shrobe, Brian C. Williams, Peng Yu.    
+    <i>AAAI Workshop on Artificial Intelligence for Cyber Security (**AICS-2018**)</i>.   
+    [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('bibtex') } else { $('#' + id).show('fast'); $(target).text('bibtex▲') } })(this, 'bibtex-chen2018radmax');">bibtex</a>]
+<div id="bibtex-chen2018radmax" style="display:none">
+<pre>
+@inproceedings{chen2018radmax,
+  title={RADMAX: Risk and Deadline Aware Planning for Maximum Utility.},
+  author={Chen, Jingkai and Fang, Cheng and Muise, Christian J and Shrobe, Howard and Williams, Brian C. and Yu, Peng},
+  booktitle={AAAI Workshop on Artificial Intelligence for Cyber Security (AICS-2018)},
+  year={2018}
+}
+</pre></div>
 
 
 
