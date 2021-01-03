@@ -8,10 +8,10 @@ author_profile: true
 {% include base_path %}
 
 
-* [Optimal Mixed Discrete-Continuous Planning for  Linear Hybrid Systems](https://jkchengh.github.io/files/chen2021optimal.pdf "Download pdf").   
+* Optimal Mixed Discrete-Continuous Planning for  Linear Hybrid Systems.   
     **Jingkai Chen**, Brian C. Williams, and Chuchu Fan.  
     <i>The 24th ACM International Conference on Hybrid Systems: Computation and Control (**HSCC 2021**)</i>.   
-   [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('bibtex') } else { $('#' + id).show('fast'); $(target).text('bibtex▲') } })(this, 'bibtex-chen2021optimal');">bibtex</a>]
+   [[PDF](https://jkchengh.github.io/files/chen2021optimal.pdf)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('bibtex') } else { $('#' + id).show('fast'); $(target).text('bibtex▲') } })(this, 'bibtex-chen2021optimal');">bibtex</a>]
 <div id="bibtex-chen2021optimal" style="display:none">
 <pre>@inproceedings{chen2021optimal,
   author = {Jingkai Chen and Brian C. Williams and Chuchu Fan},
@@ -20,10 +20,10 @@ author_profile: true
   year = {2021}
 }
 </pre></div> 
-* [Scalable and Safe Multi-Agent Motion Planning with Nonlinear Dynamics and Bounded Disturbances](https://jkchengh.github.io/files/chen2021scalable.pdf).               
+* Scalable and Safe Multi-Agent Motion Planning with Nonlinear Dynamics and Bounded Disturbances.               
     **Jingkai Chen**, Jiaoyang Li, Chuchu Fan, and Brian C. Williams.    
     <i>Proceedings of the Thirty-Fifth AAAI Conference on Artificial Intelligence (**AAAI 2021**)</i>.   
-    [[Google Scholar](https://scholar.google.com/scholar?hl=en&as_sdt=0%2C22&q=Scalable+and+Safe+Multi-Agent+Motion+Planning+with+Nonlinear+Dynamics+and+Bounded+Disturbances&btnG=)][<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('bibtex') } else { $('#' + id).show('fast'); $(target).text('bibtex▲') } })(this, 'bibtex-chen2021scalable');">bibtex</a>]
+    [[PDF](https://jkchengh.github.io/files/chen2021scalable.pdf)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('bibtex') } else { $('#' + id).show('fast'); $(target).text('bibtex▲') } })(this, 'bibtex-chen2021scalable');">bibtex</a>]
 <div id="bibtex-chen2021scalable" style="display:none">X
 <pre>
 @inproceedings{chen2021scalable,
@@ -33,10 +33,10 @@ author_profile: true
   year = {2021}
 } 
 </pre></div>
-* [Efficiently Exploring Ordering Problems through Conflict-directed Search](https://jkchengh.github.io/files/chen2019efficiently.pdf).               
+* [Efficiently Exploring Ordering Problems through Conflict-directed Search](https://ojs.aaai.org//index.php/ICAPS/article/view/3464/3332).               
     **Jingkai Chen**, Cheng Fang, David Wang, Andrew Wang, and Brian C. Williams.    
     <i>Proceedings of the Thirty-Fifth AAAI Conference on Artificial Intelligence (**ICAPS 2019**)</i>.   
-    [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('bibtex') } else { $('#' + id).show('fast'); $(target).text('bibtex▲') } })(this, 'bibtex-chen2019efficiently');">bibtex</a>]
+    [[PDF](https://jkchengh.github.io/files/chen2019efficiently.pdf)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('bibtex') } else { $('#' + id).show('fast'); $(target).text('bibtex▲') } })(this, 'bibtex-chen2019efficiently');">bibtex</a>]
 <div id="bibtex-chen2019efficiently" style="display:none">
 <pre>
 @inproceedings{chen2019efficiently,
@@ -49,9 +49,9 @@ author_profile: true
   year={2019}
 }
 </pre></div>
-* [Fast Execution of Temporal Plans with Mixed Discrete-Continuous State Constraints](https://jkchengh.github.io/files/chen2019fast.pdf).               
+* [Fast Execution of Temporal Plans with Mixed Discrete-Continuous State Constraints](https://dspace.mit.edu/handle/1721.1/122406).               
     **Jingkai Chen**. <i>Master Thesis</i>.
-    [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('bibtex') } else { $('#' + id).show('fast'); $(target).text('bibtex▲') } })(this, 'bibtex-chen2019fast');">bibtex</a>]
+    [[PDF](https://jkchengh.github.io/files/chen2019fast.pdf)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('bibtex') } else { $('#' + id).show('fast'); $(target).text('bibtex▲') } })(this, 'bibtex-chen2019fast');">bibtex</a>]
 <div id="bibtex-chen2019fast" style="display:none">
 <pre>
 @masterthesis{chen2019fast,
@@ -61,10 +61,10 @@ author_profile: true
   school={Massachusetts Institute of Technology}
 }
 </pre></div>
-* [RADMAX: Risk and Deadline Aware Planning for Maximum Utility](https://jkchengh.github.io/files/chen2018radmax.pdf).               
+* [RADMAX: Risk and Deadline Aware Planning for Maximum Utility](https://www.aaai.org/ocs/index.php/WS/AAAIW18/paper/viewPDFInterstitial/17324/17091).               
     **Jingkai Chen**, Cheng Fang, Christian J. Muise, Howard Shrobe, Brian C. Williams, Peng Yu.    
     <i>AAAI Workshop on Artificial Intelligence for Cyber Security (**AICS-2018**)</i>.   
-    [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('bibtex') } else { $('#' + id).show('fast'); $(target).text('bibtex▲') } })(this, 'bibtex-chen2018radmax');">bibtex</a>]
+    [[PDF](https://jkchengh.github.io/files/chen2018radmax.pdf)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('bibtex') } else { $('#' + id).show('fast'); $(target).text('bibtex▲') } })(this, 'bibtex-chen2018radmax');">bibtex</a>]
 <div id="bibtex-chen2018radmax" style="display:none">
 <pre>
 @inproceedings{chen2018radmax,
