@@ -9,8 +9,9 @@ author_profile: true
 
 
 * [Optimal Mixed Discrete-Continuous Planning for  Linear Hybrid Systems](https://jkchengh.github.io/files/chen2021optimal.pdf "Download pdf").   
-    **Jingkai Chen**, Brian C. Williams, Chuchu Fan.  
-   <a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('bibtex') } else { $('#' + id).show('fast'); $(target).text('bibtex▲') } })(this, 'bibtex-chen2021optimal');">bibtex</a>]
+    **Jingkai Chen**, Brian C. Williams, and Chuchu Fan.  
+    <i>Proceedings of the Thirty-Fifth AAAI Conference on Artificial Intelligence (**AAAI 2021**)</i>.   
+   [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('bibtex') } else { $('#' + id).show('fast'); $(target).text('bibtex▲') } })(this, 'bibtex-chen2021optimal');">bibtex</a>]
 <div id="bibtex-chen2021optimal" style="display:none">
 <pre>@inproceedings{chen2021optimal,
   author = {Jingkai Chen and Brian C. Williams and Chuchu Fan},
@@ -18,11 +19,12 @@ author_profile: true
   booktitle = {The 24th ACM International Conference on Hybrid Systems: Computation and Control (HSCC 2021)},
   year = {2021}
 }
+</pre></div> 
 * [Scalable and Safe Multi-Agent Motion Planning with Nonlinear Dynamics and Bounded Disturbances](https://jkchengh.github.io/files/chen2021scalable.pdf).               
-    **Jingkai Chen**, Jiaoyang Li, Chuchu Fan and Brian C. Williams.    
+    **Jingkai Chen**, Jiaoyang Li, Chuchu Fan, and Brian C. Williams.    
     <i>Proceedings of the Thirty-Fifth AAAI Conference on Artificial Intelligence (**AAAI 2021**)</i>.   
     [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('bibtex') } else { $('#' + id).show('fast'); $(target).text('bibtex▲') } })(this, 'bibtex-chen2021scalable');">bibtex</a>]
-<div id="bibtex-chen2021scalable" style="display:none">
+<div id="bibtex-chen2021scalable" style="display:none">X
 <pre>
 @inproceedings{chen2021scalable,
   author = {Jingkai Chen and Jiaoyang Li and Chuchu Fan and Brian C. Williams},
@@ -30,6 +32,22 @@ author_profile: true
   booktitle = {Proceedings of the Thirty-Fifth AAAI Conference on Artificial Intelligence (AAAI 2021)},
   year = {2021}
 } 
+</pre></div>
+* [Efficiently Exploring Ordering Problems through Conflict-directed Search](https://jkchengh.github.io/files/chen2019efficiently.pdf).               
+    **Jingkai Chen**, Cheng Fang, David Wang, Andrew Wang, and Brian C. Williams.    
+    <i>Proceedings of the Thirty-Fifth AAAI Conference on Artificial Intelligence (**ICAPS 2019**)</i>.   
+    [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('bibtex') } else { $('#' + id).show('fast'); $(target).text('bibtex▲') } })(this, 'bibtex-chen2021efficiently');">bibtex</a>]
+<div id="bibtex-chen2021efficiently" style="display:none">
+<pre>
+@inproceedings{chen2019efficiently,
+  title={Efficiently Exploring Ordering Problems through Conflict-Directed Search},
+  author={Jingkai Chen and Cheng Fang and David Wang and Andrew Wang and Brian C. Williams},
+  booktitle={Proceedings of the International Conference on Automated Planning and Scheduling (ICAPS 2019)},
+  volume={29},
+  number={1},
+  pages={97--105},
+  year={2019}
+}
 </pre></div>
 
 
