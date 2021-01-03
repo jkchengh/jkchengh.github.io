@@ -7,7 +7,7 @@
 
 # Site Settings
 locale                   : "en-US"
-title                    : "Your Name / Site Title"
+title                    : "Jingkai Chen"
 title_separator          : "-"
 name                     : &name "Your Name"
 description              : &description "personal description"
@@ -81,7 +81,7 @@ analytics:
 # Site Author
 author:
   name             : "Jingkai Chen"
-  avatar           : "profile.jpg"
+  avatar           : "profile.png"
   bio              : "Ph.D Student at Massachusetts Institute of Technology"
   location         : "Cambridge, Massachusetts"
   employer         :
