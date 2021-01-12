@@ -7,7 +7,18 @@ author_profile: true
 
 {% include base_path %}
 
-
+* Learning Safe Multi-agent Control with Decentralized Neural Barrier Certificates.   
+    Zengyi Qin, Kaiqing Zhang, Yuxiao Chen, **Jingkai Chen**, and Chuchu Fan.  
+    <i>The 9th International Conference on Learning Representations (**ICLR 2021**)</i>.   
+    [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-chen2021optimal');">Bibtex</a>]
+<div id="bibtex-qin2021learning" style="display:none">
+<pre>@inproceedings{qin2021learning,
+  author = {Zengyi Qin and Kaiqing Zhang and Yuxiao Chen and Jingkai Chen and Chuchu Fan},
+  title = {Learning Safe Multi-agent Control with Decentralized Neural Barrier Certificates},
+  booktitle = {The 9th International Conference on Learning Representations (ICLR 2021)},
+  year = {2021}
+} 
+</pre></div> 
 * Optimal Mixed Discrete-Continuous Planning for  Linear Hybrid Systems.   
     **Jingkai Chen**, Brian C. Williams, and Chuchu Fan.  
     <i>The 24th ACM International Conference on Hybrid Systems: Computation and Control (**HSCC 2021**)</i>.   
