@@ -10,7 +10,7 @@ author_profile: true
 * Learning Safe Multi-agent Control with Decentralized Neural Barrier Certificates.   
     Zengyi Qin, Kaiqing Zhang, Yuxiao Chen, **Jingkai Chen**, and Chuchu Fan.  
     <i>The Nineth International Conference on Learning Representations (**ICLR 2021**)</i>.   
-    [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-chen2021optimal');">Bibtex</a>]
+    [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-qin2021learning');">Bibtex</a>]
 <div id="bibtex-qin2021learning" style="display:none">
 <pre>@inproceedings{qin2021learning,
   author = {Zengyi Qin and Kaiqing Zhang and Yuxiao Chen and Jingkai Chen and Chuchu Fan},
@@ -35,7 +35,7 @@ author_profile: true
     **Jingkai Chen**, Jiaoyang Li, Chuchu Fan, and Brian C. Williams.    
     <i>The Thirty-Fifth AAAI Conference on Artificial Intelligence (**AAAI 2021**)</i>.   
     [[PDF](https://jkchengh.github.io/files/chen2021scalable.pdf)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-chen2021scalable');">Bibtex</a>]
-<div id="bibtex-chen2021scalable" style="display:none">X
+<div id="bibtex-chen2021scalable" style="display:none">
 <pre>
 @inproceedings{chen2021scalable,
   author = {Jingkai Chen and Jiaoyang Li and Chuchu Fan and Brian C. Williams},
