@@ -10,7 +10,7 @@ author_profile: true
 * Learning Safe Multi-agent Control with Decentralized Neural Barrier Certificates.   
     Zengyi Qin, Kaiqing Zhang, Yuxiao Chen, **Jingkai Chen**, and Chuchu Fan.  
     <i>The Nineth International Conference on Learning Representations (**ICLR 2021**)</i>.   
-    [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-qin2021learning');">Bibtex</a>]
+    [[PDF](https://jkchengh.github.io/files/qin2021learning.pdf)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-qin2021learning');">Bibtex</a>]
 <div id="bibtex-qin2021learning" style="display:none">
 <pre>@inproceedings{qin2021learning,
   author = {Zengyi Qin and Kaiqing Zhang and Yuxiao Chen and Jingkai Chen and Chuchu Fan},
