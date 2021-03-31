@@ -15,7 +15,18 @@ Before MIT, I obtained my B.E. degree in Control Science and Engineering from Ch
 
 Publications
 ======
-
+* Generalized Conflict-directed Search for Optimal Ordering Problems.   
+    **Jingkai Chen**, Yuening Zhang, Cheng Fang, and Brian C. Williams.  
+    <i>Proceedings of the Fourteenth International Symposium on Combinatorial Search (SoCS2021) (**ICLR 2021**)</i>.   
+    [[PDF](https://jkchengh.github.io/files/chen2021generalized.pdf)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-chen2021generalized');">Bibtex</a>]
+<div id="bibtex-qin2021learning" style="display:none">
+<pre>@inproceedings{chen2021generalized,
+  author = {Jingkai Chen, Yuening Zhang, Cheng Fang, Brian C. Wiiliams},
+  title = {Generalized Conflict-directed Search for Optimal Ordering Problems},
+  booktitle = {Proceedings of the Fourteenth International Symposium on Combinatorial Search (SoCS2021)},
+  year = {2021}
+} 
+</pre></div> 
 * Learning Safe Multi-agent Control with Decentralized Neural Barrier Certificates.   
     Zengyi Qin, Kaiqing Zhang, Yuxiao Chen, **Jingkai Chen**, and Chuchu Fan.  
     <i>The Nineth International Conference on Learning Representations (**ICLR 2021**)</i>.   
