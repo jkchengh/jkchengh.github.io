@@ -23,7 +23,7 @@ Publications
 <pre>@inproceedings{chen2021generalized,
   author = {Jingkai Chen, Yuening Zhang, Cheng Fang, Brian C. Wiiliams},
   title = {Generalized Conflict-directed Search for Optimal Ordering Problems},
-  booktitle = {Proceedings of the Fourteenth International Symposium on Combinatorial Search (SoCS2021)},
+  booktitle = {Proceedings of the Fourteenth International Symposium on Combinatorial Search (SoCS 2021)},
   year = {2021}
 } 
 </pre></div> 
