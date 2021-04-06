@@ -1,0 +1,13 @@
+    |\textbf{Jumps}| |\vspace{1pt}|
+    Board   |\textbf{cond}| (LA=0)$\land$(cmdA=1)$\land$(pA=pR)$\land$(vR=0) |\textbf{eff}| (LA=1) |\vspace{1pt}|
+    Deboard |\textbf{cond}| (LA=1)$\land$(cmdA=0)$\land$(vR=0) |\textbf{eff}| |\vspace{1pt}| (LA=0)
+    Stop    |\textbf{cond}| (cmdR=0) |\textbf{eff}| (LR=1),(c=0) |\vspace{1pt}|
+    Drive   |\textbf{cond}| (LR=1)$\land$(cmdR=1)$\land$(c>1) |\textbf{eff}| (LR=0)| \vspace{1pt}|
+    Charge  |\textbf{cond}| (LR=1)$\land$(cmdR=2)$\land$(pR=(10,10)) |\textbf{eff}| (LR=2) |\vspace{1pt}|
+    |\textbf{Flows}| |\vspace{1pt}|
+    Ride   $\textbf{eq}$ $\dot{\texttt{pA}}(t)$=vR |\textbf{cond}|(LA=1)$\land$(cmdA=1)$\land$(pA=xA) |\vspace{1pt}|
+    Walk   $\textbf{eq}$ $\dot{\texttt{pA}}(t)$=vA |\textbf{cond}| (LA=0)$\land$(cmdA=0) |\vspace{1pt}|
+    Ground $\textbf{eq}$ $\dot{\texttt{xR}}(t)$= [vR,-1,0] |\textbf{cond}| (LR=0)$\land$(cmdR=1)$\land$(pRx<20) |\vspace{1pt}|
+    Mount  $\textbf{eq}$ $\dot{\texttt{xR}}(t)$= [vR,-2,0] |\vspace{1pt}| |\textbf{cond}| (LR=0)$\land$(cmdR=1)$\land$(pRx>20)$\land$($|\texttt{vR}|$<2) |\vspace{1pt}|
+    Stop   $\textbf{eq}$ $\dot{\texttt{xR}}(t)$= [0,0,0,1] |\textbf{cond}| (LR=1)$\land$(cmdR=0) |\vspace{1pt}|
+    Charge $\textbf{eq}$ $\dot{\texttt{xR}}(t)$= [0,0,0,10] |\textbf{cond}| (LR=2)$\land$(cmdR=2) |\vspace{1pt}|

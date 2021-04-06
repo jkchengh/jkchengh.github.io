@@ -1,0 +1,729 @@
+
+\documentclass[sigconf]{acmart}
+
+\usepackage{nicefrac}
+\usepackage{siunitx}
+\usepackage{array,framed}
+\usepackage{booktabs}
+\usepackage{
+  color,
+  float,
+  epsfig,
+  wrapfig,
+  graphics,
+  graphicx
+}
+\usepackage{textcomp}
+\usepackage{setspace}
+\usepackage{latexsym,fancyhdr,url}
+\usepackage{enumerate}
+\usepackage{algorithm2e}
+\usepackage{algpseudocode}
+\usepackage{graphics}
+\usepackage{xparse}
+\usepackage{xspace}
+\usepackage{multirow}
+\usepackage{csvsimple}
+\usepackage{balance}
+\usepackage{hhline}
+\pagestyle{plain}
+\usepackage{
+  tikz,
+  pgfplots,
+  pgfplotstable
+}
+\usepackage{hyperref}
+
+\usetikzlibrary{
+  shapes.geometric,
+  arrows,
+  external,
+  pgfplots.groupplots,
+  matrix
+}
+
+\pgfplotsset{compat=1.9}
+
+\usepackage{mathtools,}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}
+
+\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+
+
+\setlength{\belowcaptionskip}{-10pt} 
+\setlength{\footskip}{30pt}
+\setlength{\abovecaptionskip}{5pt plus 3pt minus 2pt} 
+
+% fig
+\usepackage{subfig}
+\usepackage[export]{adjustbox}
+
+% listings
+\usepackage{fancyvrb}
+\usepackage{listings}
+    \lstset{basicstyle=\ttfamily\scriptsize,
+    escapeinside={||},
+    mathescape=true}
+
+% \input{defs}
+\newcommand{\true}{\mathsf{true}}
+\newcommand{\false}{\mathsf{false}}
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\argmax}{argmax}
+
+\input{macros}
+
+
+
+\setcopyright{acmcopyright}
+
+\copyrightyear{2021}
+\acmYear{2021}
+\setcopyright{rightsretained}
+\acmConference[HSCC '21]{24th ACM International Conference on Hybrid Systems: Computation and Control}{May 19--21, 2021}{Nashville, TN, USA}
+\acmBooktitle{24th ACM International Conference on Hybrid Systems: Computation and Control (HSCC '21), May 19--21, 2021, Nashville, TN, USA}
+\acmDOI{10.1145/3447928.3456654}
+\acmISBN{978-1-4503-8339-4/21/05}
+
+\begin{document}
+
+\fancyhead{}
+\def\thetitle{Optimal Mixed Discrete-Continuous Planning \\ for  Linear Hybrid Systems}
+\title{\thetitle}
+
+\author{Jingkai Chen}
+\email{jkchen@csail.mit.edu}
+\affiliation{%
+  \institution{Massachusetts Institute of Technology}
+  \city{Cambridge}
+  \state{MA}
+  \country{USA}
+}
+
+\author{Brian C. Williams}
+\email{williams@csail.mit.edu}
+\affiliation{%
+  \institution{Massachusetts Institute of Technology}
+  \city{Cambridge}
+  \state{MA}
+  \country{USA}
+}
+
+\author{Chuchu Fan}
+\email{chuchu@mit.edu}
+\affiliation{%
+  \institution{Massachusetts Institute of Technology}
+  \city{Cambridge}
+  \state{MA}
+  \country{USA}
+}
+
+\begin{abstract}
+Planning in hybrid systems with both discrete and continuous control variables is important for dealing with real-world applications such as extra-planetary exploration and multi-vehicle transportation systems. Meanwhile, generating high-quality solutions given certain hybrid planning specifications is crucial to building high-performance hybrid systems. However, since hybrid planning is challenging in general, most methods use greedy search that is guided by various heuristics, which is neither complete nor optimal and often falls into blind search towards an infinite-action plan. In this paper, we present a hybrid automaton planning formalism and propose an optimal approach that encodes this planning problem as a Mixed Integer Linear Program (MILP) by fixing the action number of automaton runs. We also show an extension of our approach for reasoning over temporally concurrent goals. By leveraging an efficient MILP optimizer, our method is able to generate provably optimal solutions for complex mixed discrete-continuous planning problems within a reasonable time. We use several case studies to demonstrate the extraordinary performance of our hybrid planning method and show that it outperforms a state-of-the-art hybrid planner, Scotty, in both efficiency and solution qualities.
+\end{abstract}
+
+\begin{CCSXML}
+<ccs2012>
+   <concept>
+       <concept_id>10010147.10010178.10010199.10010204</concept_id>
+       <concept_desc>Computing methodologies~Robotic planning</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+ </ccs2012>
+\end{CCSXML}
+
+\ccsdesc[500]{Computing methodologies~Robotic planning}
+
+\keywords{Linear Hybrid Systems, Hybrid Planning, Optimization}
+
+
+\maketitle
+
+\section{Introduction}
+
+Hybrid systems are a powerful modeling framework to capture both the physical plants and embedded computing devices of complex cyber-physical systems. When planning the desired behaviors of a hybrid system, we have to consider both the discrete actions taken by the computing units and the continuous control inputs for the physical actuators. This poses unique and significant challenges in planning for hybrid systems, as one has to consider the change of dynamics of the continuous flow by the control inputs, the interleaves of continuous flows and the discrete transitions between modes, resets associated with transitions, and concurrently running agents in multi-agent systems. 
+
+Planning mixed discrete-continuous strategies in hybrid systems is theoretically difficult: on the discrete side, planning with numeric state variables has been proved to be undecidable~\cite{helmert2002decidability}; on the continuous side, computing the exact unbounded time reachable states for hybrid systems is also a well-known undecidable problem~\cite{henzinger1998s}. Nevertheless we are interested in high-quality solutions with the shortest makespan or lowest energy consumption, which is crucial to designing high-performance systems.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.95\columnwidth]{images/mars.pdf}
+\caption{\small Map of Mars.}
+\label{fig:mars}
+\end{figure} 
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.9\columnwidth]{images/map.pdf}
+\caption{\small Example of Mars transportation problems: the charge station is marked as $\triangleright$, and its position is at (10,10); the rover $\circ$ is at (25,5); the astronaut $\diamond$ is at (35,10); and the destination $\Box$ is at (45,5). In the example solution, the rover path is in red, the astronaut walking path is in blue, and the astronaut taking a ride is in green.}
+\label{fig:map}
+\end{figure} 
+
+\paragraph{Motivating Example} Consider a task where an astronaut should go to an observation location by crossing different terrains (e.g., mountain, ground, and basin) on Mars, and a rover needs to go to the charge station, as shown in Figure~\ref{fig:map}. The astronaut can either walk or take a rover. The moving speed of the rover is much faster than the walking speed of the astronaut. The rover is powered by a battery. This battery can be charged when the rover is stopped in a charge station and should always have the remaining battery outside of the charge station. While the rover and astronaut should not enter the forbidden areas, the rover can move through different terrains with different velocity limits and energy consumption rates. After the rover is manually shut down, it cannot restart within 1 minute. In this mission, plans with shorter makespans are preferred.
+
+A sound solution to this problem is that the astronaut moves directly to the destination, and the rover moves directly to the charge station without picking up the astronaut. However, in this plan, the rover is not used at all. If the rover has enough battery, it can deliver the astronaut to the destination first and then go to the charge station, which saves a lot of time for the astronaut. Unfortunately, energy is always limited in reality. Intuitively, a better solution is that while the astronaut is moving towards the rover, the rover moves to the charge station for charging, then picks up and delivers the astronaut to the destination, and finally returns to the charge station. As the rover moves much faster than the astronaut, this plan requires much less time than letting the astronaut walk to the destination. Another possible faster solution is that the rover picks up and delivers the astronaut somewhere midway to the destination. Then, the astronaut walks to the destination while the rover is moving back to the charge station for a charge.
+
+In this paper, we adopt the hybrid I/O automaton \cite{lynch1995hybrid} framework to model the mixed discrete-continuous planning problems, which is expressive enough to capture all the mentioned features such as discrete and continuous input and state variables, linear dynamics for continuous flows, and guards and resets for discrete transitions. The crucial technique to make the mixed discrete-continuous optimal planning possible is the introduction of finite-step runs. A step is defined either as a discrete jump or as a set of continuous flows in a mode where we need to compute the dwell time for staying in this mode. We prove that the optimal solution (also called a run) with finite steps will converge to the optimal solution of the original hybrid system when the number of steps goes to infinity. By tailoring the automaton to admit only finite-step runs, we show that finding the optimal input such that the corresponding run has a minimum makespan can be encoded as a Mixed Integer Linear Program (MILP), which can be solved efficiently using off-the-shelf MILP solvers, such as Gurobi~\cite{gurobi2020gurobi}.    
+
+
+To encode our mixed discrete-continuous planning problem as a MILP, we draw inspiration from the idea of modeling flow tubes \cite{hofmann2006robust} as linear programs \cite{fernandez2018scottyactivity}. We further extend these linear programs to incorporate discrete decisions to model discrete variables and actions. Our complexity analysis shows that the number of MILP variables and constraints at each step increases linearly with the product of the number of linear constraints in each condition and the number of operators and variables. To accelerate MILP solving, we introduce two types of additional constraints about conflicting operators. We also show that our solution approach is able to plan for the temporally concurrent goals known as Qualitative State Plans (QSPs) \cite{hoffmann2001ff}, which describe the desired system behavior over continuous time as tasks with time windows. 
+
+
+To demonstrate the efficiency and solution qualities of our method, we benchmarked against Scotty \cite{fernandez2018scottyactivity} on three domains: Mars transportation, air refueling, and truck-and-drone delivery. In addition to dealing with different dynamics under a large number of modes, all these three domains require judiciously coordinating heterogeneous agent teams for cooperation and carefully reasoning over resources to decide necessary recharging or refueling.  The experimental results show that our approach can find high-quality solutions for all the problems in seconds and provide optimality proof for most examples, while Scotty fails to solve half of the problems within 600 seconds. Moreover, the makespans of our first solutions returned within $1$ second are already better than those of Scotty, and our final solutions can significantly improve them.
+
+
+
+
+% To encode our mixed discrete-continuous planning problems as a MILP, we draw inspiration from the idea of modeling a flow tube as a linear program \cite{fernandez2018scottyactivity}, which uses continuous variables at each step to model the allowable actuation effects of control variables over continuous state variables. We further extend this linear program to incorporate discrete decisions, which models discrete control variables and actions. To capture the imposed constraints of action decisions and the disjunctions involved in these constraints, we need to handle a nonconvex problem, which is encoded by using the big-M method. Our complexity shows that the numbers of MILP variables and constraints at each step are linear to the product to the action number plus the variable number and the number of linear constraints involved in each condition. MILP solvers such as Gurobi can solve such an encoding efficiently and optimally. Meanwhile, they can also return the incumbent solution in an any-time fashion.  To accelerate MILP solving, we also introduce two types of additional constraints about conflicting operators.
+
+% We also show that our solution approach is able to plan for the temporally concurrent goals known as Qualitative State Plans (QSPs) \cite{hoffmann2001ff}, which describe the desired system behavior over continuous time as tasks with time windows. Without additional encoding at the MILP level, we provide a method to compile QSPs into a linear hybrid automaton such that its valid runs are also valid with respect to these QSPs. 
+
+
+% To demonstrate the efficiency and solution qualities of our method, we benchmarked against the Scotty planning system \cite{fernandez2018scottyactivity} on three domains: Mars transportation, air refueling, and truck-and-drone delivery. All these three domains require judiciously coordinating heterogeneous agent teams for cooperation and carefully reasoning over resources to decide necessary recharging or refueling. In addition, while the Mars domain should search for the best route across different terrains, the air refueling domain is difficult in deciding the order of visiting different regions given their relative positions. In the truck-and-drone domains, we should maneuver trucks on highways between a couple of depots with both lower-speed and upper-speed limits and navigate drones to deliver packages. The experimental results show that our approach can find solutions for all the problems in $3$ seconds, while Scotty fails half the problems within 600 seconds. When it comes to the solution quality, the makespans of our first solutions are already better than those of Scotty in all domains, and our finally returned solution can further halve the makespan of the first ones.
+
+
+The remainder of this paper is organized as follows. We start by discussing the related work in both planning and controller synthesis (Section~\ref{section:related}). In Section~\ref{section:formulation}, we give the formal definition of our hybrid planning problem as well as a formulation of our motivating example. In Section~\ref{section:fixed}, we introduce a tractable variant of the hybrid planning problem by fixing the action number of automaton runs, which leads to a finite-step linear hybrid planning problem. In Section~\ref{section:milp}, we present our MILP encoding of this finite-step linear hybrid planning problem. Then, we introduce our extension to deal with temporally concurrent goals in Section~\ref{section:multiple}. Section~\ref{section:results} shows the results of benchmarking our method against the Scotty Planning system on three challenging domains. Finally, concluding remarks are discussed in Section~\ref{section:conclusion}.
+
+% We tailor the automaton to have finite-step runs and leverage the state-of-the-art Mixed Integer Linear Programming (MILP) techniques to solve its corresponding optimization encoding. This method is guaranteed to return provably optimal solutions for these finite-step automata. 
+
+% Embedded devices are being composed into ever more complex systems, such as extra-planetary exploration systems and multi-vehicle transportation systems, which pose unique challenges in planning and coordinating these interacting devices with mixed discrete-continuous control parameters and device states. Hybrid planners \cite{li2008generative,della2012universal,bryce2016happening,fernandez2018scottyactivity,cashmore2016compilation,bit2019cyber} have merged to address this problem by reasoning over discrete actions and continuous control variables. 
+
+% While planning with mixed discrete-continuous representations is necessary to many real-world problems, generating high-quality solutions with shorter makespan or lower energy consumption for this class of problems is crucial to building high-performance systems. However, planning with numeric state variables has been proved to be undecidable \cite{helmert2002decidability}. The problem becomes even harder when we consider continuous control variables, autonomous transitions, indirect effects, and concurrency and are interested in finding an optimal or near-optimal solution. 
+
+
+
+% \section{Motivating Scenario}\label{section:example}
+
+
+% Finding an optimal solution for such a problem is challenging since it requires reasoning over an infinite space of both discrete and continuous states such as the different terrains, the charging mode of the battery, the battery level, and the positions of both the astronaut and rover. In the rest of the paper, we show that we can model this hybrid planning problem using a hybrid automaton, restrict the number of solution steps to reduce the search space, and use a MILP encoding to formulate the finite-step hybrid planning problem.
+
+\section{Related work}\label{section:related}
+
+Planning~\cite{li2008generative,della2012universal,bryce2016happening,fernandez2018scottyactivity,cashmore2016compilation,bit2019cyber} and controller synthesis~\cite{LTLMOP,paulobook,Girard12,MajumdarMS16,KloetzerB08,Tulip-short,KloetzerB08,WongpiromsarnTM12,TabuadaP06,fan2018controller,raman2015reactive,herbert2017fastrack,vaskov2019towards} methods intersect at finding the (optimal) strategies for various system models with respect to different system specifications. In what follows, we briefly mention a couple of representative approaches that are related, without exhaustively listing all approaches in each category. 
+
+\textit{Discrete abstraction-based synthesis.}
+Discrete abstraction-based synthesis methods first compute a discrete, finite-state abstraction of control systems and then synthesize discrete controllers based on automaton theories or two-player games~\cite{paulobook,Girard12,MajumdarMS16,KloetzerB08,Tulip-short,KloetzerB08,WongpiromsarnTM12}. Synthesis tools based on abstraction such as 
+CoSyMA~\cite{Cosyma},
+Pessoa~\cite{pessoa}, LTLMop~\cite{LTLMOP,LTLMOP2},
+Tulip~\cite{Tulip-short,FilippidisDLOM16}, and SCOTS~\cite{rungger2016scots} can support complex nonlinear systems, stochastic uncertainties, or non-deterministic transitions \cite{rungger2016scots,wongpiromsarn2011tulip,filippidis2016control,vidal2001decidable,plaku2013falsification,laurenti2020formal}, and general GR(1)~\cite{wongpiromsarn2011tulip} or Signal Temporal Logic~\cite{raman2015reactive} specifications. Our problem may be solved using abstraction-based synthesis using temporal logic specifications. However, none of the above tools can be used directly on our general linear hybrid system with both discrete input/state signals and guards/resets in transitions. Moreover, our approach aims at finding high-quality solutions with low costs or high rewards over long horizons instead of finding all valid solutions. In fact, our planning approach is efficient and effective at finding high-level plans, which is complementary and can be combined with the controller synthesis algorithms for achieving autonomy in  complex hybrid systems. 
+% , and integrating our approach with these synthesis algorithms together is promising to render the next generation of hybrid planning-execution system to be fast, effective, and safe.
+
+% \textit{Sampling based planning.}
+% Sampling-based methods such as 
+% Probabilistic Road
+% Maps (PRM)~\cite{kavraki1994probabilistic}, Rapidly-exploring Random Trees (RRT)~\cite{kuffner2000rrt}, fast marching tree (FMT)~\cite{janson2015fast}, and hybrid system planner~\cite{lahijanian2014sampling} are widely used in searching plannings in nonconvex, high-dimensional, and even partially unknown environments. Compared with the deterministic guarantees provided by controller synthesis methods and our approach, these methods come only with stochastic guarantees.
+
+\textit{Sampling-based planning.}
+Sampling-based methods such as Probabilistic Roadmaps (PRM)~\cite{kavraki1994probabilistic}, Rapidly-exploring Random Tree (RRT)~\cite{kuffner2000rrt}, Fast Marching Tree (FMT)~\cite{janson2015fast}, and hybrid automata planner~\cite{lahijanian2014sampling} are widely used for searching for plans in nonconvex, high-dimensional, and even partially unknown environments. Researchers also combine the PRM sampling method with classical planning for solving task-and-motion planning problems, which involves both continuous motions and discrete tasks \cite{kaelbling2011hierarchical,lagriffoul2018platform,garrett2015ffrob,garrett2017sample,garrett2018ffrob}. Compared with the deterministic guarantees provided by controller synthesis methods and our approach, these methods come only with probabilistic guarantees.
+
+
+\textit{Hybrid planning.}
+The planning problems with a subset of the features considered in this paper (i.e., mixed discrete-continuous models, continuous control variables, autonomous transitions, indirect effects, and concurrency) can be of the categories PDDL2.1\cite{fox2003pddl2}, PDDL-S \cite{fernandez2018scottyactivity}, or  PDDL+\cite{fox2006modelling}. Some SMT-based PDDL+ planners such as SMTPlan+ \cite{cashmore2016compilation} and dReal \cite{bryce2015smt} are complete given a finite number of fixed time steps. However, PDDL+ does not support control variables and these planners solve different problems from ours. As most of the solution approaches to PDDL2.1 and PDDL-S  \cite{hoffmann2003metric,coles2012colin,fernandez2017mixed} use greedy search methods such as the enforced-hill climbing, they are neither complete nor optimal even with finite steps. Moreover, most of their heuristics belong to the Metric-FF family \cite{hoffmann2003metric}, which are known to suffering from resource persistence or cyclical resource transfer \cite{coles2013hybrid} when indirect effects or obstacles are present. Thus, none of these heuristics can handle all of these problem features and often lead the greedy search to be blind in certain domains. These motivate us to develop an effective method that is guaranteed to provide high-quality solutions for mixed discrete-continuous planning problems with various features. 
+
+Note that hybrid planning problems are closely related to the formalism of hybrid automata studied in model checking \cite{henzinger1998s,lynch1995hybrid}, which can be found in \cite{fox2006modelling}. In addition, researchers put many efforts into translating PDDL+ to hybrid automata \cite{bogomolov2014planning,bogomolov2015pddl+}, which leverages the advanced hybrid model checking tools \cite{cimatti2000nusmv,frehse2011spaceex,frehse2008phaver} to efficiently prove plan non-existence. Our method directly plans for hybrid automata instead of any PDDL extension. These two representations can be translated to each other since snap actions are basically jumps, and the overall conditions and effects of durative actions are basically flows. By using jumps and flows instead of durative actions, we are able to have a clean MILP encoding for hybrid planning problems.
+
+
+Among all the hybrid extensions of PDDL, the problems this paper aims at are most relevant to PDDL-S since it is the only planning formalism that supports continuous control variables over time \cite{fernandez2018scottyactivity}.  Kongming \cite{li2008generative} is the first planner that is able to solve PDDL-S, and then a more scalable planner Scotty \cite{fernandez2018scottyactivity} was developed. Scotty is able to efficiently solve complex underwater exploration problems, and it is the current state-of-the-art PDDL-S planner. The reasons for its efficiency are: (1) Scotty encodes the cumulative effect of each control variable as a single variable, which renders a clean convex optimization problem for plan validation, which are called flow tubes \cite{hofmann2006robust}; (2) It uses the temporal relaxed planning graph heuristics (i.e., delete relaxation) \cite{coles2012colin} to guide its greedy search.  Our method is inspired by its cumulative effect encoding and extends its optimization problem to handle discrete decisions and nonconvex conditions. By using such an encoding, we do not need to discretize the timeline with a fixed time step as \cite{li2008generative} or discretize control parameters as \cite{coles2012colin}. Meanwhile, our solution approach avoids the incompleteness and suboptimality caused by Scotty's greedy search.
+
+
+% There is also a large amount of literature in synthesising controllers for complex hybrid systems with nonlinear mode dynamics, bounded disturbances, stochastic uncertainties, or non-deterministic transitions \cite{rungger2016scots,wongpiromsarn2011tulip,filippidis2016control,vidal2001decidable,lahijanian2014sampling,plaku2013falsification,laurenti2020formal}. Most of them support Linear Temporal Logic (LTL) specifications for expressing desired trajectories. When compared, our approach also aims at generating valid plans to achieves certain goals over time but mainly focuses on searching for high-quality solutions with low costs or high rewards over long horizons. We also support both discrete input/state signals, which can be used to model more expressive problems with discrete actions and abstract states such as rovers picking astronauts and astronauts sitting in rovers. Therefore, as our planning approach is efficient and effective at finding high-level plans, it is complementary with the advanced controller synthesis algorithms for hybrid systems, and integrating our approach with these synthesis algorithms together is promising to render the next generation of hybrid planning-execution system to be fast, effective, and safe.
+
+
+% \begin{itemize}
+%     \item SCOTS: A Tool for the Synthesis of Symbolic Controllers \cite{rungger2016scots}
+%     \item A software toolbox for receding horizon temporal logic planning\cite{wongpiromsarn2011tulip}
+%     \item Control design for hybrid systems with TuLiP: The temporal logic planning toolbox\cite{filippidis2016control}
+%     \item Decidable and semi-decidable controller synthesis for classes of discrete time hybrid systems \cite{vidal2001decidable}
+%     \item A sampling-based strategy planner for nondeterministic hybrid systems \cite{lahijanian2014sampling}
+%     \item Falsification of LTL safety properties in hybrid systems \cite{plaku2013falsification}
+%     \item Formal and efficient synthesis for continuous-time linear stochastic hybrid processes \cite{laurenti2020formal}
+% \end{itemize}
+
+\section{Problem Formulation}\label{section:formulation}
+We use a linear hybrid automaton with inputs as the model for our system and then define the hybrid planning problem on this automaton.
+\begin{definition}[Linear Hybrid Automaton] 
+\label{def:HA}
+A linear hybrid automaton with inputs is a tuple $\hybrid = \langle V = (Q \cup E), \init, \goal, J, F \rangle $:
+\begin{itemize}
+    \item $Q = L \cup X$ is the set of {\em internal} variables, which are also called {\em state} variables. $L$ is the set of discrete state variables, the values of which $\val(L)$ are taken from finite sets called modes. $X$ is the set of continuous state variables, the values of which $\val(X)$ are taken from continuous sets over the reals. We call $\val(L) = \val(L) \times \val(X)$ internal state space.
+    
+    \item  $E$ is the set of {\em external} variables, which are also called {\em input} variables. External variables could also contain discrete and continuous variables, which are defined analogously to the internal variables. 
+    
+    \item $\init \in \val(L) \times \val(X)$ is an initial state, and $\goal$ is a predicate that represents a set of goal states.
+    
+    
+    \item $J$ is the set of {\em jumps}. A jump $j \in J$ is associated with a {\em condition} $\textit{cond}$ and an {\em effect} $\textit{eff}$. The condition $\textit{cond}$ is a {\em predicate} over $V$, where a predicate is a computable Boolean-valued function $\textit{cond} : \val(V) \rightarrow \bool$ that maps the values of the variables $V$ to either $\true$ or $\false$. The condition is also known as the guard condition or the enabling condition of the jump.
+    An effect $\textit{eff}: V \rightarrow Q$ specifies how the value of the state variables changes when the jump occurs. It assigns new values to the variables in $Q$.
+    The variables that are not mentioned in the effect statements are assumed to remain unchanged.
+    
+    \item $F$ is the set of {\em flows} for the state variables $X$. $F_k \subseteq F$ is the set of flows for $X_k \subseteq X$, where $\{X_0,X_1,..,X_K\}$ is a set of disjoint continuous variable sets such that $\cup_{k} X_k = X$ . A flow $f \in F_k$ is associated with a differential equation $\dot X_k = A_k E + B_k$ and a condition $\textit{cond}$ over $V$, where $A_k, B_k$ are constant matrices, and $\textit{cond}$ is defined in the same way as in jumps that specifies when a flow $f$ is activated.
+    At each time, multiple flows $f \in F$ can be activated with exactly one flow $f_k$ from each $F_k$. That is, there will always be a set of flows, which together specify the evolution of the continuous internal variables $X$ as linear differential equations. We call such a set of flows the {\em flow set} at each time, and it belongs to the power set of $F$. During the time when a flow is activated, the values of discrete state variables stay the same.
+    
+    % \item $F$ is a set of {\em flows} for the state variables $X$. $F(\Pi) \subseteq F$ is the set of flows for $\Pi \subseteq X$. A flow $f \in F(\Pi)$ is associated with a differential equation $\dot \Pi = AE+B$ and a condition $\textit{cond}$ over $V$, where $A, B$ are constant matrices, and $\textit{cond}$ is defined in the same way as in jumps that specifies when a flow $f$ is activated.
+    % At each time, multiple flows $f_k(\Pi_k) \in F$ can be activated, where each $\Pi_k$ is a subset of $X$ and contains non-overlapping variables with each other. We denote this disjoint partition of $X$ as $\Pi = \{\Pi_0,\Pi_1,.,\Pi_K\}$ and $\cup_{k} \Pi_k = X$. That is, at each time, there will always be a set of flows, which together specify the evolvement of the continuous internal variables $X$ as linear differential equations. We call such a set of flows the {\em flow set} at each time.
+    % A {\em flow set} is a set of flows including exactly one flow $f_{\Pi} \in T(\Pi)$ for each $\Pi \subseteq X$. 
+\end{itemize}
+\end{definition}
+
+% \begin{definition}[Linear Hybrid Planning Problem] A linear hybrid planning problem is a tuple $\Pi = \langle V = (Q \cup E), \init, \goal, A, F \rangle $,
+% where
+% \begin{itemize}
+%     \item $Q = L \cup X$ is the set of {\em internal} variables, which are also called {\em state} variables. $L$ is the  discrete state variables, the values of which $\val(L)$ are taken from finite sets called modes, and $X$ is the set of continuous state variables, the values of which $\val(X)$ are taken from continuous sets over the reals.
+    
+%     \item  $E$ is the set of {\em external} variables, which are also called {\em input} variables. External variables could also contain discrete and continuous variables.
+    
+%     \item $\init$ and $\goal$ are the initial state a set of goal states, which are all defined over $Q$.
+    
+%     \item $J$ is the set of {\em jumps}. A jump is associated with a condition $\textit{cond}$ over $V$ and a set of effects $\textit{eff}$ over $Q$.
+    
+%     \item $F$ is a set of {\em flows} and $F(\Pi) \subseteq F$ is a set of flows for $\Pi \subseteq X$. A flow $f \in F(\Pi)$ is associated with a differential equation $\dot \Pi = AE+B$ and a condition $\textit{cond}(f)$ over $V$ that specifies when a flow is activated.
+%     A {\em flow set} is a set of flows including exactly one flow $f_{\Pi} \in T(\Pi)$ for each $\Pi \subseteq X$. 
+% \end{itemize}
+% \end{definition}
+
+Note that $\val(Q)$ also defines the invariant set of the internal variables, where $\val(X)$ could be nonconvex. Therefore, we can avoid defining the unsafe set separately.
+
+Without loss of generality, we use an integer variable with domain $\{0,1,..,|\val(v)|-1\}$ to replace a discrete variable $v \in V$, where $|\val(v)|$ is the number of the elements in $\val(v)$. Thus, we can further assume that all conditions, initial states, and goals are represented as a propositional sentence of liner constraints:
+\begin{equation}\label{eq:formula}
+    \phi ::= \true \mid (GV \geq H) \mid % \neg
+  \phi_1 \mid \phi_1 \wedge
+  \phi_2 \mid \phi_1 \vee
+  \phi_2,
+\end{equation} 
+where $G \in \reals^{|V|}$ is a $|V|$-vector of real values and $H \in \reals$ is a real value. This propositional sentence of linear constraints can represent both convex and nonconvex regions defined by linear inequalities over both integer and continuous variables. Effects can be also represented by \eqref{eq:formula} except its linear constraints involve both $V = Q \cup E$, which are the state and input variables before taking the effects, and $Q'$, which is the state variables after taking the effects.
+
+\begin{example} 
+To formulate our motivating example, we define two discrete internal variables: the astronaut $\texttt{LA} \in \{\texttt{0},\texttt{1}\}$ has modes $\texttt{Walking(0)}$ and mode $\texttt{Riding(1)}$; the rover $\texttt{LR} \in \{\texttt{0},\texttt{1},\texttt{2}\}$ has $\texttt{Driving(0)}$, $\texttt{Stopped(1)}$ and $\texttt{Charge(2)}$.
+
+Internal continuous variables $\texttt{pA} \in [0,50]\times[0,30]$ represent the astronaut's position, and $\texttt{xR} \in [0,50]\times[0,30]\times[0,30] \times [0,\infty)$ includes the rover's position $\texttt{pR} \in [0,50]\times[0,30]$, battery level $E \in [0,30]$, and an internal clock $c \in [0, \infty)$. $\texttt{pRx}$ and $\texttt{pRy}$ are the rover's positions over the x-axis and the y-axis, respectively.  The initial state is $\texttt{LA}=\texttt{0},\texttt{LR}=\texttt{1},\texttt{pA}=(35,10),\texttt{xR}=(25,5,10,0)$ as shown in Figure~\ref{fig:map}. 
+% We use $^$ to restrict for using a subset of continuous variables such as the position of rover is $\texttt{xR} ^ \texttt{pR}$. When the context is clear, we also omit $\downarrow$ and use $\texttt{pR}$.  
+
+This system also takes commands as input variables, including discrete input variables $\texttt{cmdA} \in \{0,1\}$,  $\texttt{cmdR} \in \{0,1,2\}$, and continuous input variables $\texttt{vA} \in [-0.2,0.2]^2$, $\texttt{vR} \in [-5,5]^2$ representing velocities.%. The jumps and flows of this problem are given as follows:
+
+\lstinputlisting[]{model}
+\end{example}
+
+
+While flow sets can only change continuous state variables, jumps can change both discrete and continuous state variables. The conditions for both jumps and flows would depend on all variables (i.e., including state and input variables). While we call the union of jumps and flows $J \cup F$ as \textit{operators} $O$, we call both jumps and flow sets $ J \cup 2^{F}$ as \textit{actions} $A$. We use $\texttt{cond}_a$ to denote the set of states $v \in \val(V)$ such that the condition associated with the action $a$ is true: $\phi(v) = True$. 
+
+% We also use $\texttt{eff}_a(q,e)$ to denote the changed value of $q$ after taking a jump $a \in J$ with input $e$.
+
+% As the condition and effects of jump $o$ are given in the model as $\textit{cond}(o)$ and $\textit{eff}(o)$, these flow sets depend on the elapsed time and the external variable assignment. 
+Given a flow set $a  = \cup_k f_k \in 2^{F}$, we denote the derivative of $X$ as $AE+B$. Such $A$ and $B$ can be easily constructed from the differential equations for each flow $X_k = A_k E + B_k$. 
+If at the beginning of the flow the value of $X$ is $x_0$, and the elapsed time of such flow is $\delta$, then the $X$'s value would be updated as 
+$x \gets x_0 + A \Delta + B\delta$, where $\Delta = \int_{0}^{\delta} E dt$ is the cumulative effects of $E$ during $d$. 
+
+An input signal is a function $e: [0, \infty) \rightarrow \val(E)$, which specifies the value of the input variables at any time $t \geq 0$.
+Once an input signal is fixed, a run of the hybrid automaton is defined as follows:
+
+\begin{definition}
+\label{def:run}
+Given a linear hybrid automaton $\hybrid = \langle V = (Q \cup E), \init, \goal, J, F \rangle $ and an input command $e: [0, \infty) \rightarrow \val(E)$, a {\em run}~\footnote{We assume that in our run Zeno behaviors are not allowed. That is, we do not allow an infinite number of jumps to occur in a finite time interval.} of $\hybrid$ is defined as a sequence of internal states $q_0,\cdots,q_n \in \val(L) \times \val(X)$:
+\[
+\xi_{\hybrid,e} = q_0 \xrightarrow{a_0, \delta_0} q_1 \cdots,q_{n-1} \xrightarrow{a_{n-1}, \delta_{n-1}} q_n,
+\]
+such that
+\begin{enumerate}
+    \item $q_0 \in \init$ and $q_n \in \goal$.
+    \item $a_0,\cdots,a_{n-1}$ are actions. Let $t_i = \sum_{j=0}^{i-1}\delta_j$ be the accumulated time associated with $q_i$ for each $i = 0,\cdots,n$, then: (a) if $a_i \in J$ is a jump, then $\delta_i = 0$, $(q_i, e(t_i)) \in \mbox{cond}(a_i)$, and $q_{i+1} = \mbox{eff}(q_i, e(t_i))$; (b) if $a_i \in 2^F$ is a flow set, then $\delta_i \geq 0$, $(q_i, e(t_i)) \in \mbox{cond}(a_i)$, $x_{i+1} = x_i + A \int_{t_i}^{t_{i+1}} e(\tau) d\tau + B \delta_i$, $\ell_{i+1} = \ell_{i}$ where $q_i = (\ell_i, x_i)$. Moreover, between the time $t \in [t_i, t_{i+1})$, $(q(t),e(t))$ should always satisfy cond($a_i$). 
+        % That is, $\forall t \in [t_i, t_{i+1}]$, 
+        % $x(t) = x_i + A \int_{t_i}^{t-t_i} e(\tau) d\tau + B (t-t_i) \notin \mbox{cond}(a)$ for any $a \in \{A \setminus a_i\}$.
+\end{enumerate}
+We also denote the total time $\sum_{i=0}^{n-1} \delta_i$ of a run $e$ as $\xi_{\hybrid,e}.\mathtt{TotalTime}$. Note that although $e$ is defined on the infinite time horizon $[0,\infty)$, we do not need to have the value for $e(t)$ when $t > \xi_{\hybrid,e}.\mathtt{TotalTime}$
+\end{definition}
+
+Now given a linear hybrid automaton with inputs, we can define the planning problem as finding an input signal whose run has the minimum makespan.
+\begin{definition}\label{def:solution}
+Given a linear hybrid automaton $\hybrid = \langle V = (Q \cup E), \init, \goal, J, F \rangle $, the planning problem is to find a the optimal input $e^*$ signal so the corresponding solution's makespan is minimized:
+\[
+e* = \argmin_{e} \xi_{\hybrid,e}.\mathtt{TotalTime}
+\]
+\end{definition}
+ 
+% \textbf{and thus the effects over linear expression $\xi \equiv GX$ is $(GA\Delta U + GB\delta)$, where $\delta$ is the elapsed time and  We say $o$ is {\em partially grounded} by $Q_\Delta$ if convex region $Q_\Delta$ of $(\Delta U,\delta)$ is given and does not violate its inclusions. Given a flow set $o$ partially grounded by $Q_\Delta$, the condition $\textit{pre}(o|{Q_\Delta})$ is the intersection of two symbolic states: the first is the inclusions $\textit{inc}(o) = \land_{\o_i \in o} \textit{inc}(o_{i})$ and the second part is:
+% \begin{equation*}\label{eq:flow_pre}
+%     \textit{inc}(o) \oplus (-A\Delta U - B\delta)|_{Q_\Delta},
+% \end{equation*}
+% where $\oplus$ }is the Minkowski sum. 
+
+% A {\em (convex) symbolic state} $Q \in \val(L) \times S$ consists of a discrete state $\val(L)$ and a convex region $S$ so $\val(X) \in S$.
+% In this paper, we focus on finding a sequence of jumps and flow sets following which a set of symbolic states starting from the initial state could reach a goal state in $\goal$. A {\em candidate solution} of this problem is a sequence $(Q_0 o_0 Q_1 o_1, ..,o_{n-1},Q_n)$, where $Q_i$ are symbolic states, and an operation $o_{i}$ is either a jump or a flow set . A candidate solution $o$ is a {\em solution} if and only if (1) $Q_0 = \init$ and $Q_n \subseteq \goal$; (2) if $o_i$ is a jump, then $\textit{pre}(o_i) \subseteq Q_{i}$; if $o_i$ is a flow set, then ($Q_{i} \cup Q_{i+1}) \subseteq \cap_j(\textit{inc}(o_{ij})),\forall o_{ij} \in o_i$; (3) for any $i \geq 0$, there exists a value of $E$ such that, every state $q_{i+1} \in Q_{i+1}$ can be achieved from some $q_{i} \in Q_{i}$ by taking a jump $o_i$ or following the differential equations of a flow set $o_i$. We consider the optimality of the solution in terms of the makespan (make sure everyone understands what makespan is or explain it).
+
+\section{finite-step Decision Problem}\label{section:fixed}
+
+Solving the planning problem (Definition~\ref{def:solution}) to get the optimal input signal $e^*$ needs to reason over all possible $e(t)$. For most hybrid automaton, this is intractable, as the unbounded-time reachability problem is undecidable even for rectangular hybrid automaton~\cite{henzinger1998s}, which is a simpler hybrid automaton than ours with the right-hand side of the differential equations containing only constants. 
+
+
+Essentially, to solve the optimal $e^*$, we need to assign values of all input variables for infinitely many $t$. To make this problem solvable, we fix the number of actions allowed in the run of the hybrid automaton and simplify the original problem by searching for $e(t)$ that corresponds to each action. We introduce a {\em fixed-step linear hybrid automaton} to capture such an idea.
+
+\begin{definition}
+A {\em finite-step linear hybrid automaton with input} $\hybrid_n$ is a linear hybrid automaton $\hybrid$ (as defined in Definition~\ref{def:HA}) with all runs of $\hybrid$ to have exactly $n$ actions.
+\end{definition}
+
+% While most hybrid automata is undecidable in general, finding an input signal such that its corresponding run exists even for our linear hybrid automata $\hybrid$ falls into this class of undecidable problems and thus challenging. As the linear hybrid planning problem is to find a run with the minimum makespan, the problem becomes much harder. Thus, in order to obtain a tractable problem, we fix the action number of all the runs in $\hybrid$ and obtain a fixed-step linear hybrid automaton as $\hybrid^n$, which leads to a decidable finite-step decision problem. 
+
+In Section~\ref{section:milp}, we present how to use a MILP encoding to solve the planning problem for fixed-step linear hybrid automaton. Next, we show that for a hybrid automaton $\hybrid$, once we fix the number of actions $n$ and make it $\hybrid_n$, the feasible solution set (the set of input signals $e$ such that $\xi_{\hybrid_n, e}$ is a run of $\hybrid$ with $n$ actions) is non-decreasing as the number of actions $n$ increases.
+
+\begin{lemma}\label{lemma:step}
+Let $\hybrid^n$ be a finite-step linear hybrid automaton for $\hybrid$ with fixed action number $n$. Let $\Xi_{\hybrid^n}$ and $\mathcal{E}_{\hybrid^n}$ be all the runs of $\hybrid^n$ and their corresponding input signals, respectively. For any $0 < n' < n$, we have $\mathcal{E}_{\hybrid^{n'}} \subseteq \mathcal{E}_{\hybrid^n}$.
+\end{lemma}
+
+\begin{proof}
+For any $e \in \mathcal{E}_{\hybrid^n}$, let $ q \xrightarrow{a, \delta} q'$ be a segment of its run $\xi_{\hybrid, e}$ and $a \in 2^F$ is a flow set. We can replace this segment with $q \xrightarrow{a, \delta} q' \xrightarrow{a, 0} q'$, and the new run is still a run of $\hybrid$ given input signal $e$. As this new run has $n+1$ actions, we prove that $e \in \mathcal{E}_{\hybrid^{n+1}}$ for any $e \in \mathcal{E}_{\hybrid^{n}}$.
+\end{proof}
+
+As the original hybrid automaton $\hybrid$ does not fix the action number, we know $\mathcal{E}_{\hybrid}  = \bigvee_{n = 0}^{n=\infty} \mathcal{E}_{\hybrid^n} = \lim_{n \rightarrow \infty}\mathcal{E}_{\hybrid^n}$, which directly follows from Lemma~\ref{lemma:step}. 
+
+
+Let 
+\begin{equation}
+\label{eq:enstar}
+ e_n^* = \argmin\limits_{e \in \mathcal{E}_{\hybrid^{n}}} \xi_{\hybrid_n,e}.\mathtt{TotalTime}.   
+\end{equation}
+As $\mathcal{E}_{\hybrid^{n'}} \subseteq \mathcal{E}_{\hybrid^n}$, it is easy to check that $\xi_{\hybrid_{n'},e_{n'}^*}.\mathtt{TotalTime} \geq \xi_{\hybrid_n,e_n^*}.\mathtt{TotalTime}$. This gives us the following corollary.
+
+
+\begin{corollary}
+Following Lemma~\ref{lemma:step}, then $\lim\limits_{n \rightarrow \infty} e_n^* = e^*$, where $e_n^*$ is defined as \eqref{eq:enstar}.
+\end{corollary}
+
+% Another following corollary is that the minimum total time of the input signal in $\mathcal{E}_{\hybrid^n}$ is monotonically non-increasing towards $e^*$ in Definition~\ref{def:solution} as the action number $n$ increases.
+
+
+\section{Mixed Integer Linear Encoding}
+\label{section:milp}
+In this section, we describe how to encode a finite-step linear hybrid planning problem as a Mixed Integer Linear Program, in which numbers of variables or constraints at each step increase linearly with the product of the operator number and the number of disjuncts involved in each condition (Section~\ref{sec:milp:complexity}). We first introduce a method to encode formulas with syntax as in \eqref{eq:formula} (Section~\ref{section:milp:disjunctive}), and move on to the detailed encoding procedure for the finite-step linear hybrid problem (Section~\ref{sec:milp:constraints}). Additional constraints about conflicting operators for speeding up MILP solving are discussed in (Section~\ref{sec:milp:additional}).
+% the continuous and binary variables used to represent the input signal, internal states, and actions at each step (Section~\ref{section:milp:var}), then discuss how to formulate constraints on those variables to enforce constraints on the initial state, goal states, and the conditions and effects of actions (Section~\ref{section:milp:disjunctive}). We also introduce the objective function that represents the total time of solutions and present .
+
+\subsection{Encoding Linear Constraint Formulas}\label{section:milp:disjunctive}
+Firstly, we introduce the methods to encode constraints with syntax \eqref{eq:formula} as MILP constraints. We start by encoding a canonicalized form and move on to the general case. 
+
+\paragraph{Encoding CNF Linear Constraint Formula} Note that a condition expressed using \eqref{eq:formula} can be always transformed into a conjunctive normal form (CNF) of linear constraints:
+\begin{equation}
+    \texttt{cond}(V) \equiv \land_r^m \lor_s^{m_r} (\texttt{cond}_{rs}(V)) \equiv \land_r^m \lor_s^{m_r} (G_{rs} V \geq H_{rs}),    
+\end{equation}
+where $G_{rs} \in \reals^{|V|}$ and $H_{rs} \in \reals$, $m$ is the number of conjuncts in $\texttt{cond}$, and $m_r$ is the number of disjuncts in the $r^{\text{th}}$ conjunct. For convenience, we also replace $G_{rs}V > H_{rs}$ with $G_{rs}V \geq H_{rs}$ without invalidating the solutions. As disjunctions are present in $\texttt{cond}$, which result in nonconvex sets in general, we use the Big-M method to handle such disjunctive logic in  $\lor_s^{m_r} (G_{rs} V \geq H_{rs})$. We define a $m_r$-vector of intermediate Boolean variables $\alpha_r$ with domain $\{0,1\}$. While $G_{rs} V \geq H_{rs}$ should hold if $\alpha_{rs} = 1$, we have $\alpha_{rs} = 1$ for at least one $\alpha_{rs}$. Then, the $r^\text{th}$ disjunction $\lor_s^{m_r} (G_{rs} V \geq H_{rs})$ is represented as a set of linear constraints:
+\begin{equation}
+  \left( \land_s^{m_r} \left(  \alpha_{rs} = 1  \implies G_{rs} V \geq H_{rs} \right) \right) \land  \left( \sum_s^{m_r} \alpha_{rs} \geq 1 \right)   
+\end{equation}
+
+Let $M$ be a very large positive number, then each implication is encoded as linear inequalities over both $V$ and indicator variables:
+\begin{equation}
+G_{rs}V + M(1-\alpha_{rs}) \geq H_{rs}
+\end{equation}
+
+As $\texttt{cond}(V) = \true$ needs all the conjuncts to hold, we end up with the following constraint:
+\begin{equation}\label{eq:cnf}
+    \land_r^m \land_s^{m_r}  \left( \left( G_{rs}V + M \left( 1-\alpha_{rs} \right) \geq H_{rs} \right) \land  \left( \sum_s^{m_r} \alpha_{rs} \geq 1 \right) \right).
+\end{equation}
+
+
+\paragraph{Encoding General Linear Constraint Formula} 
+While some regions are easier to encode by using CNFs, the CNFs of some others take more space. For example, in Figure~\ref{fig:segment}, the blue region is a good candidate to be encoded as CNF $(\land_0^3 \phi_{0i}) \land (\lor_0^3 \phi_{1i}) \land (\lor_0^3 \phi_{3i})$, where $\phi_{ij}$ is a linear inequality and its direction is given in the figure. However, the green region is more intuitive to  be encoded as $ (\land_0^3 \phi_{2i}) \lor (\land_0^3 \phi_{4i})$, which is not CNF.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.9\columnwidth]{images/segment.pdf}
+\caption{\small Examples of two regions to encode as linear constraint formulas.}
+\label{fig:segment}
+\end{figure} 
+
+We can use similar methods to encode the general case in \eqref{eq:formula} in a recursive fashion. Given a set of formulas $\{\phi_0, \phi_1,..\phi_m\}$, we assume the MILP constraint for $\phi_r$ is already encoded as $\land_s^{m_r} (\texttt{LHS}_{rs} \geq \texttt{RHS}_{rs})$, which is a set of linear constraints over $V$ and some indicator variables. We show both the conjunction and disjunction encodings of these formulas. To obtain the MILP constraint of conjunction $\land_r^m \phi_r$, we have:
+\begin{equation}\label{eq:and}
+    \land_r^m \land_s^{m_r} (\texttt{LHS}_{rs} \geq \texttt{RHS}_{rs}).
+\end{equation}
+
+To encode disjunction $\lor_r^m \phi_r$ , we introduce an $m$-vector of Boolean variables $\alpha$ and the disjunction is captured by: 
+\begin{equation}\label{eq:or}
+     \left( \land_r^m \land_s^{m_r}  \left( \texttt{LHS}_{rs} + M \left( 1-\alpha_{r} \right) \geq \texttt{RHS}_{rs} \right)  \right)   \land  \left( \sum_r \alpha_{r}^m \geq 1 \right) .
+\end{equation}
+For each linear constraint, if there exist some indicator variable that is not equal to $1$, the constraint trivially holds. This set of constraints can be further canonicalized into $\land_s^{m_r} (\texttt{LHS}_{rs} \geq \texttt{RHS}_{rs})$ over $V$ and indicator variables for other logic operations. 
+
+% An alternative to CNF is the disjunctive normal form (DNF) $\texttt{cond} \equiv \lor_r^m \land_s^{m_r} (\texttt{cond}_{rs}) \equiv \lor_r^m \land_s^{m_r} (G_{rs} V \geq H_{rs})$, where $G_{rs} \in \reals^{|V|}$ and $H_{rs} \in \reals$, $m$ is the number of disjuncts in $\texttt{cond}$, and $m_r$ is the number of conjuncts in the $r^{\text{th}}$ disjunct. Similar to the constraint of CNF, its Big-M encoding is as follows:
+% \begin{equation}\label{eq:dnf}
+%     \land_r^m  \left(  \left( \land_s^{m_r} G_{rs}V + M \left( 1-\alpha_{r} \right)  \geq H_{rs} \right)  \land  \left( \sum_r^{m} \alpha_{r} \geq 1 \right)  \right) ,
+% \end{equation}
+% where $G_{rs} V \geq H_{rs}$ should hold for every $s \in \{0,1,..,m_r\} $ if Boolean variable $\alpha_{r} = 1$. 
+
+
+
+
+
+\subsection{Encoding Finite-step Hybrid Planning}
+Now we are ready to encode the entire planning problem as defined in Definition~\ref{def:solution} for linear hybrid automata with $n$-step runs.
+\label{sec:milp:constraints}
+\subsubsection{Variables}\label{section:milp:var}
+% Given a linear hybrid automaton $\hybrid = \langle V = (Q \cup E), \init, \goal, J, F \rangle $ and a fixed number of steps $n$, the planning problem is finding an input signal such that its run with a sequence of interleaving $n+1$ states and $n$ actions can go from the initial state to some goal state. In this section, we first introduce the continuous and integer variables to represent the input signal and these $n+1$ states. Then, we move on to the variables to represent these $n$ actions.
+
+To represent the internal states $\{q_0, q_1, .., q_n\}$, we define a set of variables $\{Q_0, Q_1,.., Q_n\}$, and $Q_i$ corresponds to the internal state $Q_i$ right after $a_i$ occurs and right before $a_{i+1}$ occurs. Their domains are copied from $Q$. To represent the input signal $e$, we also have $E_i \in \{E_0,E_1,..,E_{n-1}\}$, corresponding to the values of $E$ when $a_i$ occurs, and their domains are copied from $E$.  
+
+To represent the actions that happen at each step, we define a set of binary activation variables $\{P_0, P_1,..,P_{n-1}\}$. $P_i$ is the union of $P^J_i$ and $P^F_i = P^{F_0}_i \cup P^{F_1}_i \cup,..,P^{F_K}_i$, which are the activation variables at step $i$ for jumps $J$ and flows $\{F_1, F_2,..,F_K\}$, respectively. Each $p_i^o \in P_i$ corresponds to an operator $o$ (i.e., a jump or a flow) at step $i$. If $p_i^o = 1$, operator $o$ is activated at step $i$; otherwise, $o$ is inactivated.  To fully determine the effects of flows, we need to specify the cumulative effects of the input variables and the elapsed time during these flows. Thus, we define $d_i$ with domain $[0,\infty)$ to represent the elapsed time during step $i$; and real variable $\Delta$ denotes $\int_{0}^{d_i} E_i dt$, the cumulative effects of $E_i$ during step $i$.
+
+We denote the set of all these MILP variables as $\mathcal{V}$. Let $\Pi: \mathcal{V} \rightarrow \reals$ be a MILP solution that maps a MILP variable $v \in \mathcal{V}$ to a value $\Pi(v) \in \val(v)$. Then, given a MILP solution $\Pi$, we can get the values of the input command $e$ as well as a valid run $\xi_{\hybrid,e} = q_0 \xrightarrow{a_0, \delta_0} q_1 \cdots,q_{n-1} \xrightarrow{a_{n-1}, \delta_{n-1}} q_n$ as given in Definition~\ref{def:run}. 
+We extract $e$ over duration $[0, \sum_{i=0}^{(n-1)} \Pi(d_i)]$ as follows:
+\begin{equation}\label{eq:extract_e}
+    \begin{aligned}
+    e(t)=
+    \left\{
+    \begin{array}{l}
+    
+    \Pi(E_i), \quad \text{if } t =  (\sum_{j=1}^i \Pi(d_j)) \\
+    
+    \Pi(\Delta_i)/\Pi(d_i), \quad \text{if } (\sum_{j=0}^{(i-1)} \Pi(d_j)) < t < (\sum_{j=0}^{i} \Pi(d_j))
+    
+    \end{array}
+    \right.
+    \end{aligned}
+\end{equation}
+
+We extract the run $\xi_{\hybrid,e}$ of $e$ from $\Pi$ as follows:
+\begin{equation}\label{eq:extract_run}
+    \begin{aligned}
+    q_i = \Pi(Q_i), & \quad \text{for } i \in \{0,1,..,n\}, \\
+    \delta_i = \Pi(d_i),& \quad \text{for } i \in \{0,1,..,n-1\}, \\
+    a_i = a \text{ if } p \in P_i \text{ and } \Pi(p) = 1, & \quad \text{for } i \in \{0,1,..,n-1\}.
+    \end{aligned}
+\end{equation}
+
+% \subsection{Constraints and Objective Function}
+
+
+\subsubsection{Objective Function}
+
+As specified in Definition~\ref{def:run}, we aim at finding a run with minimum $\texttt{TotalTime}$, and thus the objective function is $\sum_{i=0}^{n-1} \delta_i$.
+
+\subsubsection{Constraints}
+Next, we introduce the constraints over these variables, which force only one jump or one flow set to be chosen at every time step with their conditions being satisfied and effects being imposed, such that the goal states can be reached from the initial state through these actions. Figure~\ref{fig:conditions} summarizes all constraints C1-C10 to encode the planning problem. We have the following theorem that justify the pair of input command and run given by \eqref{eq:extract_e}-\eqref{eq:extract_run} is valid:
+
+\begin{theorem} \label{theorem:justify}
+Given a $n$-step hybrid automata $\hybrid$ and a MILP solution $\Pi$ over the variables $\mathcal{V}$ as defined in Section~\ref{section:milp:var}, the input command $e$ and run $\xi_{\hybrid,e}$ that are extracted from $\Pi$ by  \eqref{eq:extract_e}-\eqref{eq:extract_run} are an optimal solution of $\hybrid$ if $\mathcal{V}$ satisfies constraint C1-C10 in Figure~\ref{fig:conditions} and $\sum_{i=0}^{n-1} \delta_i$ is minimized.
+\end{theorem}
+
+Next, we prove Theorem~\ref{theorem:justify} by explaining C1-C10 in detail. As these constraints are the exact translation of Definition~\ref{def:run}, our solution approach is sound and complete and thus optimal.
+
+\begin{figure}[t]
+\centering
+  \lstinputlisting[basicstyle=\small]{constraint}
+  \caption{\small Constraints in the MILP encoding.}
+  \label{fig:conditions}
+\end{figure}
+
+\paragraph{Initial and Goal States}
+First, constraint C1 ensures that runs start from $\init$, and its final state $Q_n$ satisfies $\goal$ such that Definition~\ref{def:run}(1) is respected. We use \eqref{eq:and}-\eqref{eq:or} to encode constraint $\goal(Q_N) = \true$.
+
+\paragraph{Operator Activation}
+Constraint C2 can avoid the ambiguity of having multiple jumps or multiple flows for the same internal continuous variables at each step. Recall that $p_i^o = 1$ means the corresponding operator $o$ is activated at step $i$. Constraint C2 forces either of the following conditions to hold: (1) exactly one jump is active, and all the flows are inactivated (Definition~\ref{def:run}(2a)); (2) all jumps are inactivated, and there is exactly one flow for each continuous variable set is activated (Definition~\ref{def:run}(2b)).
+
+
+\paragraph{Jump Constraint}
+When a jump is active, its conditions should be satisfied, and their effects should be imposed (Definition~\ref{def:run}(2a)). For each jump $j \in J$ with condition $\textit{cond}_j$, when jump $j$ is activate at step $i$, which is $p_{i}^j = 1$, condition $\textit{cond}_j$ should hold, which is captured by C3. Constraint C4 enforces the effect, which is linear constraints $Q_i = \texttt{eff}_j(V_{i-1})$, to happen right after jumps. Note that this constraint also forces the unaffected variables to remain the same after the jumps. In addition, C5 ensures that the elapsed time during jumps is zero, which is activated when some jump is chosen.
+
+
+\paragraph{Flow Constraint}
+While the condition of jumps should only hold right before it happens, the condition of flows should always hold until the next action (Definition~\ref{def:run}(2b)).
+% We handle flow conditions differently for state and input variables. 
+Let $\textit{cond}_f$ be the condition of a flow $f \in F$ and denote the constraints of $\textit{cond}_f$ over $Q$ and $E$ as $\textit{cond}_f^Q$ and $\textit{cond}_f^E$, respectively. Given our solution specification, while the constraint over $Q$ should hold through the execution of $f$, including the start and end, the constraint over $E$ should also thoroughly hold except at the end of this flow, where the change of $E$ may trigger other jumps or flows. 
+
+Since the considered dynamics are linear and all the conditions are sets of disjunctive linear constraints, satisfying $\textit{cond}_f ^ Q$ at the start and the end of flow $f$ with respect to the same disjunct in each disjunctive linear constraint implies $\textit{cond}_f ^ Q$ holds during $f$. Constraint C6 captures $\textit{cond}_f ^ Q$ at the start and end of flow $j$ being activated. This constraint is sufficient to guarantee the linear trajectory from $Q_i$ ti $Q_{i+1}$ always satisfies $\texttt{cond}^Q_j$, and the reason is as follows: they share the same indicator variables and always satisfy the same disjunct in each disjunction, and thus they are in the same convex region; as the line between two points in a convex region always stay in this region, we know that the trajectory from $Q_i$ to $Q_{i+1}$ satisfy $\texttt{cond}_f^Q$. As a similar encoding for motion planning with polytope obstacles can be seen in \cite{FanMMV:CAV2018}, our encoding method extends it to handle more general linear constraint formula.
+
+As condition $\textit{cond}_f ^ E$ should hold through flow $f$ except at the end, we add constraints over $E$ when $f$ starts and the constraints over $\Delta$, which is the cumulative effects of $E$ during $f$ happening. While the former constraint is captured in C7, the latter is in C8. For a linear constraint $G^E_{f, rs}E_i \geq H^E_{f, rs}$, we can obtain the equivalent linear constraint over $\Delta_i$ and $d_i$ by integrating it over time on both sides and substituting in $\Delta = \int_{0}^{d} E dt$:
+\begin{equation}
+    G^E_{f, rs} \Delta_i \leq H^E_{f, rs} d_i.
+\end{equation}
+By doing this for each  $G^E_{f, rs}E_i \geq H^E_{f, rs}$ in $\texttt{cond}^E_{f, rs}$, we obtain the condition $\texttt{cond}^\Delta_{f, rs}$ over $(\Delta, d)$.
+
+Then, we determine the evolution of state variables during the flows. Recall that the state variables $Q$ consist of continuous state variables $X$ and discrete state variables $L$.  Let the differential equation of a flow $f$ be $\dot X_k = A_fE + B_f$, and then C9 enforces continuous dynamics by adding the effects of $\Delta$ and $d$ to $X_k$. Constraint C10 makes sure that flows do not change discrete variables.
+% As flows do not change discrete variables, we also add the constraint C9, which is activated when some flow set is chosen.
+
+
+\subsection{Complexity Analysis}
+\label{sec:milp:complexity}
+
+Now, we discuss the complexity of our MILP encoding. Let $n$ be the number of total steps, $K$ be the total number of disjoint continuous variable sets $\{X_1,X_2,..,X_L\}$, $Q$ be the internal state variables, $E$ be the input variables, $J$ be the jumps, $F$ be the flows, and $m$ and $m'$ be the maximum number of linear inequalities and disjuncts in each condition or effect, respectively. As shown in Section~\ref{section:milp:var}, we know the total number of variables in a MILP is the sum of the following variables: the variables for internal states, input signals, elapsed times, cumulative effects, which are $n(|Q|+2|E|+1)$ MILP variables in total; the activation variables for flows and jumps, which is $n(|J|+|F|)$; the additional Boolean variables for indicating activated disjuncts in conditions, which is $2m'+nm'(|J|+2|F|)$ as shown in Table~\ref{tab:ind_num}. Thus, we know the number of all the variables is in $\mathcal{O}(n(|V|+m'(|J|+|F|))$, where $\mathcal{O}$ is the asymptotic notation.
+
+\begin{table}[h]\small
+\caption{\small Numbers of indicator variables in C1-C10.}
+\label{tab:ind_num}
+
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+ C1   & C2 & C3 & C4 or C5 & C6 & C7 or C8 & C9 or C10 \\ \hline
+$2m'$ & $0$ & $nm'|J|$ & $0$ & $nm'|F|$ & $nm'|F|$ & $0$ \\ \hline
+\end{tabular}
+
+\end{table}
+
+\begin{table}[h]\small
+\caption{\small Numbers of linear constraints in C1-C10.}
+\label{tab:cons_num}
+
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+ C1 & C2 & C3 or C4 & C5 & C6 & C7 or C8 & C9 or C10 \\ \hline
+
+ $2m$ & $nK$ & $nm|J|$ & $n|J|$ & $2nm|F|$ & $nm|F|$ & $n|F|$ \\ \hline
+\end{tabular}
+
+\end{table}
+We show the total numbers of constraints in C1-10 in Table~\ref{tab:cons_num}. The total number of all these constraints is $2m + n(K + (2m+1)|J| + (3m+1)|F|)$. As $K \leq |F|$, we know the number of total constraints is in $\mathcal{O}(nm(|J|+|F|))$. At each time step, the constraint number increase linearly with the product of the number of operators $|J|+|F|$ and the number of disjuncts in a condition $m$.
+
+
+
+\subsection{Additional Techniques for Speeding up}
+\label{sec:milp:additional}
+To accelerate MILP solving, we add additional constraints to encode conflicting operators that cannot happen together or in sequence. While constraints C3, C4, C6, and C7 already prevent these conflicting operators from happening, additional constraints can help a MILP optimizer to effectively prune state space and thus reduce total runtimes.
+
+One type of additional constraints is about the flows with mutually exclusive conditions. Let $f, f' \in F$ be two flows whose differential equations scope on different continuous variable sets $X_k, X_{k'}$, and $\texttt{cond}_f$ and $\texttt{cond}_{f'}$ be there conditions. If $\texttt{cond}_f \land \texttt{cond}_{f'}$ is always $\false$, which means their specified states are totally disjoint, we add constraint $p^f_i + p^{f'}_i  \leq 1$ for every $i \in \{0,1,..,n-1\}$, which ensures at most one of these flows can be activated at every step. The total number of the added constraints is $nm_f$, where $m_f$ is the number of conflicting flow pairs. Note that these constraints are redundant, which are already encoded by C6, but could help a MILP optimizer to easily identify conflicting operators without further checking the complex constraints in C6.
+
+Another type of additional constraints is about subsequent conflicting operators. Let $o, o' \in J \cup F$ be two operators, and $\texttt{post}_o^Q$ and $\texttt{pre}_{o'}^Q$ be the possible internal states after taking $o$, and the possible internal states before $o'$, respectively. We have $\texttt{pre}_{o'}^Q = \texttt{cond}_{o'}^Q$ regardless of $o'$ is a jump or a flow, where $\texttt{cond}_{o'}^Q$ is the condition of $o'$ over internal states $Q$. On the other hand, $\texttt{post}_{o}$ can be different given different operator types: if $o$ is a flow, $\texttt{post}_{o}$ is still $\texttt{cond}_{o}^Q$ since flow $o$ needs this condition to hold during its happening; if $o$ is a jump, we set $\texttt{post}_{o} = \{ \texttt{eff}_o(q,u) \ | \ \texttt{cond}^Q_o(q) = \true \text{ and } (q,u) \in V \}$. If $\texttt{post}_o \land \texttt{pre}_{o'}$ is always $\false$, we know they cannot happen in sequence. Thus, we add constraint $p_i^o + p_{i+1}^{o'} \leq 1$ for every $i \in \{0,1,..,n-2\}$. The total number of the added constraints is $(n-1)m_o$, where $m_o$ is the number of conflicting operator pairs that cannot happen in sequence. 
+
+
+
+
+
+
+\section{Temporally Concurrent Goals}\label{section:multiple}
+In this section, we extend our method to handle a set of temporally concurrent goals by compiling them into our hybrid automata with a certain final goal. There are various types of specifications to represent desired system behaviors over continuous time in both planning and control, such as STL (Signal Temporal Logic) \cite{maler2004monitoring}, and Qualitative State Plan (QSP) \cite{hoffmann2001ff}. While the former formalism has a more expressive syntax by using formal logic, QSP is a well-known specification used in planning and is more suitable to the applications we consider in this paper, which specifies a set of tasks to complete as well as the temporal bounds between their starts and ends. We introduce our method to deal with QSP in this section and present related experiments in Section~\ref{section:results:delivery}. We view exploring the methods and applications related to STL as our future work.
+
+% A $QSP$ is a tuple $qsp = \langle EV, EP \rangle$: $EV$ is a set of events with non-negative real domains and $e_0 \in EV$ is the initial event; $EP$ is a set of episodes. Each episode $ep =\langle e^\vdash, e^\dashv, lb, ub, \texttt{cond}  \rangle$ is associated with start and end events $e^\vdash, e^\dashv \in E$, a duration bound $[lb, ub]$, and a condition $\texttt{cond}$. Condition $\texttt{cond}$ must be $\true$ when $e^\vdash < t < e^\dashv$, and the temporal bound $[lb, ub]$ so that $lb \leq e^\dashv - e^\vdash \leq ub$. For each $e \in EV$, we denote $\{ep \in EP \ | \ e \text{ is the start event of } ep \}$ as $\texttt{starting}(e)$ and $\{ep \in EP \ | \ e \text{ is the end event of } ep \}$ as $\texttt{ending}(e)$.  
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=0.95\columnwidth]{images/qsp.pdf}
+\caption{\small QSP example of four events and two episodes. Episode $ep_0$ constrain the astronaut to stay at the initial state between $20$ and $30$ minutes right after the mission begins; Episode $ep_1$ constrain the astronaut to stay at the charge station between $20$ and $30$ minutes sometime during the mission.}
+\label{fig:qsp}
+\end{figure} 
+
+A $QSP$ is a tuple $qsp = \langle EV, EP \rangle$: $EV$ is a set of events, and $e_0 \in EV$ is the initial event that represents the mission begins; $EP$ is a set of episodes. Each episode $ep =\langle e^\vdash e^\dashv, lb, ub, \texttt{cond}  \rangle$ is associated with start and end events $e^\vdash, e^\dashv \in EV$, a duration bound $[lb, ub]$, and a condition $\texttt{cond}$. For each $e \in EV$, we denote $\{ep \in EP \ | \ e = ep.e^\vdash \}$ as $\texttt{starting}(e)$ and $\{ep \in EP \ | \ e = ep.e^\dashv \}$ as $\texttt{ending}(e)$. An example of QSP is given in Figure~\ref{fig:qsp}.
+
+
+A schedule $s: EV \rightarrow \reals^\geq$ to $qsp$ is a function that maps $e \in EV$ to a non-negative real value such that (1) $s(e_0) = 0$; and (2) $lb_i \leq s(e_i^\vdash) - s(e_i^\dashv) \leq ub_i$ for every $ep_i \in EP$. We say a trajectory $\xi$ satisfies $qsp$ if there exists a schedule $s$ such that for every $ep_i \in EP$, $\texttt{cond}_i(\xi(t)) =\true$  when $(s(e^\vdash_i) < t < s(e^\dashv_i))$.
+
+Given a hybrid automaton $\hybrid = \langle V = (Q \cup E), \init, \goal, J, F \rangle $ and a QSP $qsp = \langle EV, EP \rangle$, we compile this QSP into the original automaton as described below, and the runs of the obtained new automaton $\hybrid'$ respect both $\hybrid$ and $qsp$. We denote this new automaton as $\hybrid' = \langle V' = (Q'\cup E), \init', \goal', J', F'\rangle$.
+
+First, we make a clock variable $c_{ep}$ with domain $[-2, \infty)$ for each episode $ep \in EP$. While $c_{ep} = -1$ means $ep$ has not started, $c_{ep} = -2$ means $ep$ has been achieved. When $ep$ is happening, $c_{ep} \geq 0$. Thus, the continuous state variables of $\hybrid'$ is $Q' = Q \cup C$ and $C  = \{c_{ep} \in [-2, \infty) \ | \ ep \in EP \}$. Since all the episodes have not started in the beginning except the episodes started by initial event $e_0$, the new initial state is $\init' = \init \cup \{(c = -1) \ | \ c \in C/\texttt{starting}(e0)\} \} \cup \{c = 0 \ | \ ep \in \texttt{starting}(e_0)\}$. As all the episodes should be achieved eventually, the new goal is $\goal' = \goal \cup \{(c = -2) \ | \ c \in C \}$.
+
+To describe that clock variables reset at events, we add a set of jumps $J_{EV}$, and $J' = J \cup J_{EV}$.  For each event $e \in EV$, there is a jump $j_e \in J_{EV}$ with the following condition: $\{(c_{ep} = -1) \ | \ ep \in \texttt{starting}(ep)\}$, which ensures event $e$ has not happened before, and  $\{ (lb(ep) \leq c_{ep} \leq ub(e)) \ | \ ep \in \texttt{ending}(e) \}$, which shows $e$ should end only when all the ended episodes has lasted for a proper duration with respect to their temporal bounds. The effects $\{(c_{ep} = 0) \ | \ ep \in \texttt{starting}(e)\}$ and $\{(c_{ep} = -2) \ | \ ep \in \texttt{ending}(e)\}$ capture the clock variable resets for started episodes and ended episodes, respectively.
+
+To force the condition is imposed and its clock variable clicks when an episode is happening, we have a flow $f_{ep}^1$ for each clock variable $c \in C$. This flow has differential equation $\dot c_{ep} = 1$ and conditions $(c_{ep} \geq 0) \cup \texttt{cond}_{ep}$. We also have $f_{ep}^0$ with differential equation $\dot c_{ep} = 0$ and condition $(c_{ep} \leq -1)$ to represent that episode $ep$ is not happening. Thus, the new flows are $F' = F \cup F_{EP}$ and $F_{EP} =  \{ f_{ep}^0 \ | \ ep \in EP \} \cup \{ f_{ep}^1 \ | \ ep \in EP \}$.
+
+% \begin{itemize}
+%     \item $Q' = Q \cup C_{EV}$. $C  = \{c_{ep} \in [-2, \infty) \ | \ ep \in EP \}$.
+%     \item $\init' = \init \cup \{(c = -1) \ | \ c \in C/\texttt{starting}(e0)\} \} \cup \{c = 0 \ | \ ep \in \texttt{starting}(e_0)\}$.
+%     \item $\goal' = \{(c = -2) \ | \ c \in C \}$.
+%     \item $J' = J \cup J_{EV}$ and $J_{EV} =  \{ j_e \ | \ e \in EV \}$. For each event $e \in EV$, there is a jump $j_e \in J_{EV}$ with the following condition $\{(c_{ep} = -1) \ | \ ep \in \texttt{starting}(ep)\}$ and  $\{ (lb(ep) \leq c_{ep} \leq ub(e)) \ | \ ep \in \texttt{ending}(e) \}$. The effects are $\{(c_{ep} = 0) \ | \ ep \in \texttt{starting}(e)\}$ and $\{(c_{ep} = -2) \ | \ ep \in \texttt{ending}(e)\}$
+%     \item 
+% \end{itemize}
+
+\section{Experimental Results}\label{section:results}
+
+To demonstrate the capabilities of our method, we ran our MILP encoding with Gurobi 9.0.1, which is highly optimized and leverages multiple processor cores, and benchmarked against Scotty \cite{fernandez2018scottyactivity} on the Mars transportation domains with different initial setups, the air refueling domains with different numbers of UAVs taking photos in different numbers of regions, and the truck-and-drone delivery domains with different numbers of trucks, drones, and packages. All experiments were run on a 3.40GHZ 8-Core Intel Core i7-6700 CPU with 36GB RAM with a runtime limit of $600$s. At the end of this section, we also discuss the sizes of these MILP encodings.
+
+
+\begin{figure}[t]
+    \centering
+    \subfloat[The rover directly picks up and delivers the astronaut to the destination.]{\includegraphics[frame,trim={0.7cm 1.2cm 0.2cm 0.6cm},clip,width=0.45\columnwidth]{images/mars_case1.pdf}}\
+    \,
+    \subfloat[The rover does not have enough battery for the trip or going to the charge station, and the astronaut has to walk.]{\includegraphics[frame,trim={0.7cm 1.2cm 0.2cm 0.6cm},clip,width=0.45\columnwidth]{images/mars_case2.pdf}}
+    \,
+    \subfloat[The rover picks up and delivers the astronaut but  has to recharge during the trip.]{\includegraphics[frame,trim={0.7cm 1.2cm 0.2cm 0.6cm},clip,width=0.45\columnwidth]{images/mars_case3.pdf}}
+    \,
+    \subfloat[The rover picks up and delivers the astronaut after recharging.]{\includegraphics[frame,trim={0.7cm 1.2cm 0.2cm 0.6cm},clip,width=0.45\columnwidth]{images/mars_case4.pdf}}
+    \caption{\small Mars transportation examples with different initial battery levels and charge station locations: the charge station is marked as $\triangleright$; the forbidden areas, mountain, ground, and basin are in gray, red, green, and blue, respectively; the route of the rover is in red and starts from the bottom left; the route of an astronaut walking is in blue, and its goal destination is at the bottom right; the route of the astronaut taking the rover to the destination is in green.}
+    \label{fig:mars_execution}
+
+\end{figure}
+
+
+\begin{table*}[t]
+\caption{\small Experimental results of twelve domains. The three numbers after each delivery domain name are the numbers of trucks, drones, and packages, respectively; $t$: the total runtime in seconds; $g$: the makespan of the returned solution; $t_1$: the runtime to find the first solution; $g_1$: the makespan of the first solution; $t_*$: the runtime to first find the solution that is finally returned; $n$: the number of actions; $\# \mathcal{V}_C$, $\# \mathcal{V}_I$, \#C: the numbers of continuous variables, integer variables, and constraints in our MILP encoding; $\# \mathcal{V}_C'$, $\# \mathcal{V}_I'$, \#C': the numbers of continuous variables, integer variables, and constraints in the presolved MILP models. }
+
+\label{tab:results}
+%\small
+\begin{tabular}{|c||c|c||c|c|c|c|c||c|c|c|c|c|c|c|}
+\hline
+\multirow{2}{*}{Domain} & \multicolumn{2}{c|}{Scotty} & \multicolumn{12}{c|}{MILP Encoding} \\ \cline{2-15} 
+ & $t$ & $g$ & $t$ & $g$ & $t_1$ & $g_1$ & $t_*$ & $n$ & $\# \mathcal{V}_C$ & $\# \mathcal{V}_C'$ & $\# \mathcal{V}_I$ & $\# \mathcal{V}_I'$ & \#C & \#C' \\ \hline
+Mars (a) & \textless{1} & 35 & \textless{1} & 4.6 & \textless{1} & 35 & \textless{1} & 6 & 65 & 54 & 66 & 34 & 1003 & 527 \\ \hline
+Mars (b) & \textless{1} & 35 & \textless{1} & 25.2 & \textless{1} & 35 & \textless{1} & 6 & 65 & 54 & 66 & 34 & 1003 & 527 \\ \hline
+Mars (c) & \textless{1} & 35 & 5.0 & 5.2 & \textless{1} & 35 & \textless{1} & 9 & 95 & 84 & 99 & 58 & 1501 & 884 \\ \hline
+Mars (d) & \textless{1} & 35 & 3.9 & 6 & \textless{1} & 35 & \textless{1} & 9 & 95 & 84 & 99 & 58 & 1501 & 915  \\ \hline
+Air (a) & 4 & 91 & \textless{1} & 43.7 & \textless{1} & 82.7 & \textless{1} & 7 & 75 & 58 & 80 & 22 & 897 & 423 \\ \hline
+Air (b) & 17 & 163 & 2.4 & 55.9 & \textless{1} & 103.9 & 1.5 & 12 & 125 & 109 & 185 & 117 & 2443 & 1826 \\ \hline
+Air (c) & \textgreater{600} & NA & \textgreater{600} & 84.3 & 1.7 & 177.8 & 70.9 & 24 & 245 & 232 & 610 & 478 & 11117 & 9274 \\ \hline
+Air (d) & \textgreater{600} & NA & \textgreater{600} & 40.7 & 0.6 & 108.2 & 154.4 & 18 & 278 & 260 & 566 & 450 & 13692 & 11181 \\ \hline
+Delivery (a) (1,1,1) & NA & NA & 8.9 & 36 & \textless{1} & 240 & 3.3 & 7 & 99 & 91 & 339 & 240 & 6449 & 3347 \\ \hline
+Delivery (b) (1,2,2) & NA & NA & 13.0 & 12 & \textless{1} & 120 & 3.3 & 7 & 129 & 115 & 402 & 308 & 7610 & 4325 \\ \hline
+Delivery (c) (2,4,4) & NA & NA & \textgreater{600} & 132 & \textless{1} & 780 & 219.6 & 11 & 291 & 267 & 1128 & 999 & 28538 & 20804 \\ \hline
+Delivery (d) (2,4,4) & NA & NA & \textgreater{600} & 240 & 1.9 & 960 & 14.5 & 11 & 339 & 319 & 1172 & 1029 & 34130 & 25583 \\ \hline
+\end{tabular}
+
+\end{table*}
+
+\subsection{Mars Transportation Domain}
+The Mars transportation domains involve reasoning over obstacle avoidance and battery consumption under different terrains, such that the astronaut can reach the destination with the help of the rover in the shortest time. A map consists of a set of regions, and each region is a polygon associated with a terrain type. A region can be of the forbidden area, mountain, ground, and basin, which follows the terrains in Figure~\ref{fig:mars}. Driving a rover in different terrains has different velocity limits and energy consumption rates: driving in the mountains should be limited to 10km/h, and the battery consumption rate is 3unit per hour; the velocity limit and the consumption rate in the basin is 30km/h and 2unit/h, and those are 50km/h and 2unit/h for the ground. Walking in these three terrains is 2km/h. On the map, while we fix the initial locations and destinations for astronauts and rovers, we vary the locations of charge stations and the initial battery levels in the four different examples in Figure~\ref{fig:mars_execution}.
+
+
+In Figure~\ref{fig:mars_execution}, the forbidden areas, mountain, ground, and basin are in gray, red, green, and blue, respectively. As we can see, while the rover starts from its initial location at the bottom left and traverses through mountains and basins to arrive at the destination, the astronaut walks towards the rover and joins the ride. It is interesting to notice that the rover chooses the upper route since traversing the lower mountain area costs more time and energy. While the battery is enough for the rover to complete the route in (a), it is insufficient in (b) and (c). In Figure~\ref{fig:mars_execution}(c), the rover carries the astronaut to the charge station and then continues the mission after getting enough battery. In  Figure~\ref{fig:mars_execution}(b), the rover battery is too low and even insufficient for the trip to the charge station. Thus, the astronaut gets off and walks from the closest location to the destination after draining the battery. In Figure~\ref{fig:mars_execution}(d), the rover also gets recharged, but it happens before picking up the astronaut due to different charge station locations.
+
+
+Table~\ref{tab:results} shows that our method is able to find the optimal solution and prove its optimality for all these four domains. While Scotty can find a consistent solution $g = 35$ within one second $t<1$, our method can also find such a solution $g_1 = 35$ within one second $t_1<1$. In this solution, the astronaut directly moves to the destination without the help of the rover, which only uses one action but takes a very long time. While Scotty stops after finding this solution, our method keeps searching for better solutions and finds the optimal solution roughly within one second $t_* < 1$. These solutions are then proved to be optimal and returned as Gurobi exhausts the solution space. Thus, our method is able to quickly find a consistent solution and an optimal solution for the Mars transportation domains.
+
+\begin{figure}[]
+    \centering
+    \subfloat[The UAV takes photos for three regions and does not need refueling.]{\includegraphics[frame,trim={0cm 0cm 0cm 0cm},clip,width=0.45\columnwidth]{images/air_case1.pdf}}\
+    \,
+    \subfloat[The UAV takes photos for four regions and refuels once along the route.]{\includegraphics[frame,trim={0cm 0cm 0cm 0cm},clip,width=0.45\columnwidth]{images/air_case2.pdf}}
+    \,
+    \subfloat[The UAV takes photos for ten regions and refuels twice along the route.]{\includegraphics[frame,trim={0cm 0cm 0cm 0cm},clip,width=0.45\columnwidth]{images/air_case3.pdf}}
+    \,
+    \subfloat[Two UAVs take photos for eight regions along two different routes. While one UAV does not need refueling, the other one refuels once.]{\includegraphics[frame,trim={0cm 0cm 0cm 0cm},clip,width=0.45\columnwidth]{images/air_case4.pdf}}
+    \caption{\small \small Air refueling examples with different numbers of UAVs and regions to take photos:  the regions for taking photos are gray polygons; all the examples consider one UAV (blue) and one tank plane (red) except example (d), which has an additional UAV (green); all the UAVs (blue) are fueled up (i.e., 100 units) in the beginning except the second UAV (green) in domain (d), whose fuel is 10 units. When the plane is refueling, the routes are makred in yellow.}
+    \label{fig:air_execution}
+\end{figure}
+
+
+
+
+\subsection{Air Refueling Domain} \label{section:results:air}
+In this domain, autonomous Unmanned Aerial Vehicles (UAVs) need to take pictures of several regions before landing at the destination location. Since a UAV has limited fuel, it needs to refuel in-air from a tanker plane. This problem is difficult since it requires reasoning on the optimal ordering of visiting all the regions and also coordinating the UAVs and the tank planes to take necessary refueling. When multiple UAVs are in a mission, we should also effectively dispatch the photo-taking tasks such that the makespan is minimized. The maximum velocity of the tank plane is $20m/s$. While flying, UAVs can fly with the velocity up to $30m/s$, and the fuel decreases at $2\text{unit}/s$. Refueling requires the distances between UAVs and tanks planes to be less than $10m$. When an UAV is refueling, the maximum allowable velocity is $5m/s$, and the fuel increases at $10\text{unit}/s$. While the tank capacity of UAVs is $100$ units, we assume the tank plane has enough fuel during missions.
+
+We experimented with this domain on four examples with different numbers of regions and UAVs, as shown in Figure~\ref{fig:air_execution}. The UAVs and the plane start from the same spot and should arrive at the same destination. While there is only one UAV in the examples (a), (b), and (d), we add another UAV in example (d). All the examples only have one tank plane. While our method succeeds in finding feasible solutions in two seconds for all the examples, Scotty spends much more time on (a) and (b) and fails to solve the other two examples within $10$ minutes, which require more complex coordination on visiting a larger number of regions. It is interesting to note that our first solutions are already better than the Scotty solutions, and the makespans of our final solutions are mostly half of those of Scotty. This is because the delete-relaxation heuristics in Scotty misguided its greedy search when energy resources (i.e., fuel) are in this domain, which prevents Scotty from being effective or efficient in this domain.
+
+
+\subsection{Truck-and-Drone Delivery Domain}\label{section:results:delivery}
+
+In this domain, we consider a fleet of delivery trucks, each equipped with a couple of drones, and the drone and truck both make deliveries to the customers. While trucks can travel between depots through highways or roads, the drone can fly freely in obstacle-free regions or land on trucks to take a ride. When trucks are driving on the road, they should follow the minimum and maximum speed limits as well as the directions, which prevents trucks from violating the traffic rules such as making U-turns on highways. Drones are more flexible, but they are slower, and the travel distance is limited by their battery capacity. In this domain, we look for a plan to deliver all the packages in the shortest time. Figure~\ref{fig:truck_drone} shows an example of the truck-and-drone delivery domains between two depots, in which the two trucks loaded with packages and drones are driving towards each other on a two-way street. Unfortunately, the package destinations are not on the road ahead, and the trucks cannot turn around. A reasonable plan is that the packages are swapped to the other truck by using the drones to cross the street, and then the truck and drone on the other side continue delivery. 
+
+
+\begin{figure}[]
+    \centering
+    \includegraphics[trim={0.65cm 2.6cm 0.15cm 3cm},clip,width=0.9\columnwidth]{images/truck_drone.pdf}
+    \caption{\small Examples of two trucks and two drones delivering two packages:  their initial positions and the package destinations are marked; the truck routes are in red or green and start from the bottom left and the top right, respectively; the routes are in green if the trucks are carrying drones; the routes of drones flying are in blue.}
+    \label{fig:truck_drone}
+\end{figure}
+
+
+We test on a map with five depots and ten highways between these depots. Each road is straight and around 10km long with a speed limit of 30-60km/h. The drone can fly with a maximum speed of 5km/h. We assume no obstacle for drones in these examples. The experimental results of four truck-and-drone delivery examples are shown in Table~\ref{tab:results}. While the packages can be delivered at any time in the first three examples, Delivery (d) requires the packages to be delivered within certain time windows specified as a QSP. As we noticed, Scotty does not make progresses to carrying drones to the deport near the drop-off locations and thus fails to solve any of these problems.  It can be seen from the $t_1$ column that our method is able to find the solution very quickly within several seconds. The optimal solutions can also be found in a very short time, $t_*$ for both (a) and (b). In domains (c) and (d), in which we have two trucks, four drones, and four packages, even though it fails to prove the optimality of the incumbent in 10 minutes, their returned solutions largely reduce the makespan of the first returned solutions.
+
+
+\subsection{MILP Model Study}
+Now, we study the MILP models of the three benchmarked domains. Table~\ref{tab:results} shows the numbers of integer variables $\mathcal{V}_I$, continuous variables $\mathcal{V}_C$, and constraints $C$ in our original encoding (Section~\ref{section:milp}), as well as those (i.e., $\mathcal{V}_C'$, $\mathcal{V}_I'$, C') in the model that has been presolved by Gurobi. Gurobi presolves a MILP model by compiling it into a smaller model with equivalent feasible and optimal solutions as the original. As we can see in Table~\ref{tab:results}, the presolved models reduce about $20\%$ continuous variables, $20 \sim 40\%$ integer variables, and $30 \sim 50 \%$ constraints in most examples. We also observed that presolving takes less than $0.1s$ in our experiments.
+
+
+As the Mars domain does not have many discrete state variables or actions, the numbers of its discrete variables and continuous variables are roughly the same. When it comes to the air refueling domain with more than $8$ regions to visit or the truck-and-drone delivery domain with a large number of discrete variables to indicate trucks are on a certain highway, we observe the number of discrete variables is $2 \sim 5$ times than that of continuous variables. We also note that it is more difficult to find provably optimal solutions in the MILP problems with more integer variables. While Gurobi can find a solution for all the examples in $2s$ even for Delivery (d), which has $1511$ variables and $34130$ constraints, the largest problem we can prove optimality within the runtime limit is Delivery (b), which has $537$ variables and $7610$ constraints.
+
+
+\section{Conclusions}\label{section:conclusion}
+In this paper, we presented a mixed discrete-continuous planning approach that fixes the action number of the automaton runs and encodes the corresponding finite-step hybrid planning problem as a MILP. Our complexity analysis shows that the number of the MILP variables and constraints at each step increases linearly with the product of the number of linear constraints involved in each condition and the number of operators and variables. By leveraging the state-of-the-art MILP optimizer Gurobi, our method is able to efficiently find provably optimal or high-quality solutions for challenging mixed discrete-continuous planning problems. This was supported by our experimental results against Scotty on the Mars transportation domains, the air refueling domains, and the truck-and-drone delivery domains.
+
+% In this paper, we show how to deal with temporally concurrent goals modeled in QSPs with our MILP approach. For future work, we plan to extend our method to support the full features of STL, which can model more expressive desired systems behaviors. We also would like to explore and solve more real-world applications with this extension.
+
+\subsubsection*{Acknowledgements.} The authors acknowledge support from the DARPA Assured Autonomy under contract FA8750-19-C-0089 and the DARPA Creative Problem Solver under contract N16A-T002-0149. The views, opinions and/or findings expressed are those of the authors and should not be interpreted as representing the official views or policies of the Department of Defense or the U.S. Government.
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{bib}
+
+\end{document}
+\endinput
