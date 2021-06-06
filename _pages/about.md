@@ -26,8 +26,8 @@ Publications
   booktitle = {Proceedings of the Fourteenth International Symposium on Combinatorial Search (SoCS 2021)},
   year = {2021}
 } 
-</pre></div> 
-* Learning Safe Multi-agent Control with Decentralized Neural Barrier Certificates.   
+</pre></div>
+* [Learning Safe Multi-agent Control with Decentralized Neural Barrier Certificates](https://openreview.net/pdf?id=P6_q1BRxY8Q).   
     Zengyi Qin, Kaiqing Zhang, Yuxiao Chen, **Jingkai Chen**, and Chuchu Fan.  
     <i>The Nineth International Conference on Learning Representations (**ICLR 2021**)</i>.   
     [[PDF](https://jkchengh.github.io/files/qin2021learning.pdf)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-qin2021learning');">Bibtex</a>]
@@ -39,10 +39,10 @@ Publications
   year = {2021}
 } 
 </pre></div> 
-* Optimal Mixed Discrete-Continuous Planning for  Linear Hybrid Systems.   
+* [Optimal Mixed Discrete-Continuous Planning for Linear Hybrid Systems](https://dl.acm.org/doi/10.1145/3447928.3456654).       
     **Jingkai Chen**, Brian C. Williams, and Chuchu Fan.  
     <i>The Twenty-Fourth ACM International Conference on Hybrid Systems: Computation and Control (**HSCC 2021**)</i>.   
-   [[PDF](https://jkchengh.github.io/files/chen2021optimal.pdf)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-chen2021optimal');">Bibtex</a>]
+   [[PDF](https://jkchengh.github.io/files/chen2021optimal.pdf)] [[Video](https://youtu.be/HZXaehrYaaM)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-chen2021optimal');">Bibtex</a>]
 <div id="bibtex-chen2021optimal" style="display:none">
 <pre>@inproceedings{chen2021optimal,
   author = {Jingkai Chen and Brian C. Williams and Chuchu Fan},
@@ -51,10 +51,10 @@ Publications
   year = {2021}
 }
 </pre></div> 
-* Scalable and Safe Multi-Agent Motion Planning with Nonlinear Dynamics and Bounded Disturbances.               
+* [Scalable and Safe Multi-Agent Motion Planning with Nonlinear Dynamics and Bounded Disturbances](https://ojs.aaai.org/index.php/AAAI/article/view/17340).    
     **Jingkai Chen**, Jiaoyang Li, Chuchu Fan, and Brian C. Williams.    
     <i>The Thirty-Fifth AAAI Conference on Artificial Intelligence (**AAAI 2021**)</i>.   
-    [[PDF](https://jkchengh.github.io/files/chen2021scalable.pdf)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-chen2021scalable');">Bibtex</a>]
+    [[PDF](https://jkchengh.github.io/files/chen2021scalable.pdf)] [[Video](https://youtu.be/VdMTYHTgHt4)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-chen2021scalable');">Bibtex</a>]
 <div id="bibtex-chen2021scalable" style="display:none">
 <pre>
 @inproceedings{chen2021scalable,
@@ -67,7 +67,7 @@ Publications
 * [Efficiently Exploring Ordering Problems through Conflict-directed Search](https://ojs.aaai.org//index.php/ICAPS/article/view/3464/3332).               
     **Jingkai Chen**, Cheng Fang, David Wang, Andrew Wang, and Brian C. Williams.    
     <i>The Twenty-Ninth International Conference on Automated Planning and Scheduling (**ICAPS 2019**)</i>.   
-    [[PDF](https://jkchengh.github.io/files/chen2019efficiently.pdf)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-chen2019efficiently');">Bibtex</a>]
+    [[PDF](https://jkchengh.github.io/files/chen2019efficiently.pdf)] [[Video](https://youtu.be/andVn5uQ4Oo)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-chen2019efficiently');">Bibtex</a>]
 <div id="bibtex-chen2019efficiently" style="display:none">
 <pre>
 @inproceedings{chen2019efficiently,
