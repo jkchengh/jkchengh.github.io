@@ -15,6 +15,18 @@ Before MIT, I obtained my B.E. degree in Control Science and Engineering from Ch
 
 Publications
 ======
+* State-Temporal Decoupling of Multi-Agent Plans under Limited Communication.   
+    Yuening Zhang, **Jingkai Chen**, Eric Timmons, Marlyse Reeves, and Brian C. Williams.  
+    <i>Proceedings of the Ninth ICAPS Workshop on Planning and Robotics (**PlanRob 2021**)</i>.   
+    [[PDF](https://jkchengh.github.io/files/zhang2021state.pdf)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-chen2021generalized');">Bibtex</a>]
+<div id="bibtex-zhang2021state" style="display:none">
+<pre>@inproceedings{zhang2021state,
+  author = {Yuening Zhang, Jingkai Chen, Eric Timmons, Marlyse Reeves, Brian C. Wiiliams},
+  title = {State-Temporal Decoupling of Multi-Agent Plans under Limited Communication},
+  booktitle = {Proceedings of the Ninth ICAPS Workshop on Planning and Robotics (PlanRob 2021)},
+  year = {2021}
+} 
+</pre></div>
 * Generalized Conflict-directed Search for Optimal Ordering Problems.   
     **Jingkai Chen**, Yuening Zhang, Cheng Fang, and Brian C. Williams.  
     <i>Proceedings of the Fourteenth International Symposium on Combinatorial Search (**SOCS 2021**)</i>.   
