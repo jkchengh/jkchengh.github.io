@@ -27,7 +27,7 @@ Publications
   year = {2021}
 } 
 </pre></div>
-* Generalized Conflict-directed Search for Optimal Ordering Problems.   
+* [Generalized Conflict-directed Search for Optimal Ordering Problems](https://ojs.aaai.org/index.php/SOCS/article/view/18550).   
     **Jingkai Chen**, Yuening Zhang, Cheng Fang, and Brian C. Williams.  
     <i>The Fourteenth International Symposium on Combinatorial Search (**SOCS 2021**)</i>.   
     [[PDF](https://jkchengh.github.io/files/chen2021generalized.pdf)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-chen2021generalized');">Bibtex</a>]
