@@ -18,7 +18,7 @@ Publications
 * State-Temporal Decoupling of Multi-Agent Plans under Limited Communication.   
     Yuening Zhang, **Jingkai Chen**, Eric Timmons, Marlyse Reeves, and Brian C. Williams.  
     <i>The Ninth ICAPS Workshop on Planning and Robotics (**PlanRob 2021**)</i>.   
-    [[PDF](https://jkchengh.github.io/files/zhang2021state.pdf)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-zhang2021state);">Bibtex</a>]
+    [[PDF](https://jkchengh.github.io/files/zhang2021state.pdf)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-zhang2021state');">Bibtex</a>]
 <div id="bibtex-zhang2021state" style="display:none">
 <pre>@inproceedings{zhang2021state,
   author = {Yuening Zhang, Jingkai Chen, Eric Timmons, Marlyse Reeves, Brian C. Wiiliams},
