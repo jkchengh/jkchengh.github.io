@@ -15,6 +15,12 @@ Before MIT, I obtained my B.E. degree in Control Science and Engineering from Ch
 
 Publications
 ======
+* Cooperative Task and Motion Planning for Multi-Arm Assembly Systems.   
+    
+    **Jingkai Chen**, Jiaoyang Li, Yijiang Huang, Caelan Garrett, Dawei Sun, Chuchu Fan, Andreas Hofmann, Caitlin Mueller, Sven Koenig, Brian C. Williams 
+    <i>RAL/ICRA2022 (Under Review)</i>.
+    [[Video](https://youtube.com/playlist?list=PLPE70_UHUxDJhtmm7cL69fGMerDTnTZJj)]
+
 * State-Temporal Decoupling of Multi-Agent Plans under Limited Communication.   
     Yuening Zhang, **Jingkai Chen**, Eric Timmons, Marlyse Reeves, and Brian C. Williams.  
     <i>The Ninth ICAPS Workshop on Planning and Robotics (**PlanRob 2021**)</i>.   
@@ -42,7 +48,7 @@ Publications
 * [Learning Safe Multi-agent Control with Decentralized Neural Barrier Certificates](https://openreview.net/pdf?id=P6_q1BRxY8Q).   
     Zengyi Qin, Kaiqing Zhang, Yuxiao Chen, **Jingkai Chen**, and Chuchu Fan.  
     <i>The Nineth International Conference on Learning Representations (**ICLR 2021**)</i>.   
-    [[PDF](https://jkchengh.github.io/files/qin2021learning.pdf)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-qin2021learning');">Bibtex</a>]
+    [[PDF](https://jkchengh.github.io/files/qin2021learning.pdf)] [[Video](https://youtu.be/qmAaOEIQJo8)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-qin2021learning');">Bibtex</a>]
 <div id="bibtex-qin2021learning" style="display:none">
 <pre>@inproceedings{qin2021learning,
   author = {Zengyi Qin and Kaiqing Zhang and Yuxiao Chen and Jingkai Chen and Chuchu Fan},
