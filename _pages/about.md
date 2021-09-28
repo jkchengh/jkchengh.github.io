@@ -16,8 +16,8 @@ Before MIT, I obtained my B.E. degree in Control Science and Engineering from Ch
 Publications
 ======
 * Cooperative Task and Motion Planning for Multi-Arm Assembly Systems.   
-    **Jingkai Chen**, Jiaoyang Li, Yijiang Huang, Caelan Garrett, Dawei Sun, Chuchu Fan, Andreas Hofmann, Caitlin Mueller, Sven Koenig, Brian C. Williams.
-    <i> RAL/ICRA2022 (Under Review)</i>.
+    **Jingkai Chen**, Jiaoyang Li, Yijiang Huang, Caelan Garrett, Dawei Sun, Chuchu Fan, Andreas Hofmann, Caitlin Mueller, Sven Koenig, Brian C. Williams.   
+    <i> RAL/ICRA2022 (Under Review)</i>.   
     [[Video](https://youtube.com/playlist?list=PLPE70_UHUxDJhtmm7cL69fGMerDTnTZJj)]
 
 * State-Temporal Decoupling of Multi-Agent Plans under Limited Communication.   
