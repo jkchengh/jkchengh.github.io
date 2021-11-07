@@ -46,11 +46,10 @@ Publications
 </pre></div>
 
 <table>
- <div style="width: 25%; float: left;"> 
-    <a href="https://youtu.be/gRqrYJWyXyI">
+<div style="width: 25%; float: left;"> 
       <img src="files/covers/qin2021learning.gif" style="max-width: 90%;"/>
-    </a>
-  </div>
+</div>
+<div style="margin-left: 25%;"> 
 [Learning Safe Multi-agent Control with Decentralized Neural Barrier Certificates](https://openreview.net/pdf?id=P6_q1BRxY8Q).   
     Zengyi Qin, Kaiqing Zhang, Yuxiao Chen, **Jingkai Chen**, and Chuchu Fan.  
     <i>The Nineth International Conference on Learning Representations (**ICLR 2021**)</i>.   
@@ -62,7 +61,7 @@ Publications
   booktitle = {Proceedings of the Nineth International Conference on Learning Representations (ICLR 2021)},
   year = {2021}
 } 
-</pre></div> 
+</pre></div></div>
 </table>
 
 * [Optimal Mixed Discrete-Continuous Planning for Linear Hybrid Systems](https://dl.acm.org/doi/10.1145/3447928.3456654).       
