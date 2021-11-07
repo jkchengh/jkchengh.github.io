@@ -13,13 +13,25 @@ I am a sixth-year Ph.D. student at MIT, advised by [Prof. Brian C. Williams](htt
 Before MIT, I obtained my B.E. degree in Control Science and Engineering from Chu Kochen Honors College at Zhejiang University in 2016. Previously, I was furtunate to work with [Dr. Dimitrios Pantazis](https://mcgovern.mit.edu/profile/dimitrios-pantazis/) at MIT McGovern Institute of Brain Research, [Prof. Mario Gerla](https://en.wikipedia.org/wiki/Mario_Gerla) at UCLA Network Research Lab, and [Prof. Jiming Chen](https://person.zju.edu.cn/en/jmchen) and [Prof. Peng Cheng](https://person.zju.edu.cn/en/cp) at Zhejiang University NeSC Lab.
 
 
-Publications
+Preprints
 ======
 * Cooperative Task and Motion Planning for Multi-Arm Assembly Systems.   
-    **Jingkai Chen**, Jiaoyang Li, Yijiang Huang, Caelan Garrett, Dawei Sun, Chuchu Fan, Andreas Hofmann, Caitlin Mueller, Sven Koenig, Brian C. Williams.   
-    <i> RAL/ICRA2022 (Under Review)</i>.   
-    [[Video](https://youtube.com/playlist?list=PLPE70_UHUxDJhtmm7cL69fGMerDTnTZJj)]
+    **Jingkai Chen**, Jiaoyang Li*, Yijiang Huang*, Caelan Garrett, Dawei Sun, Chuchu Fan, Andreas Hofmann, Caitlin Mueller, Sven Koenig, Brian C. Williams.   
+    <i> Submitted to IEEE Robotics and Automation Letters (RA-L) and IEEE International Conference on Robotics and Automation (ICRA 2022)</i>.   
+    [[PDF](https://jkchengh.github.io/files/chen2022cooperative.pdf)] [[Demo](https://youtube.com/playlist?list=PLPE70_UHUxDJhtmm7cL69fGMerDTnTZJj)]
+* Multi-Agent Path Finding for Precedence-Constrained Goal Sequences.   
+    Han Zhang*, **Jingkai Chen***, Jiaoyang Li, Brian C. Williams, Sven Koenig.   
+    <i> Submitted to International Joint Conference on Autonomous Agents and Multi-agent Systems (AAMAS 2022)</i>.   
+* Large-scale Multi-agent Safe Control with Neural Contraction Metrics and Barrier Certificates.   
+   Zengyi Qin, Dawei Sun, **Jingkai Chen**, Yuxiao Chen, Kaiqing Zhang, Susmit Jha, Chuchu Fan.
+    <i> Submitted to IEEE Transactions on Automatic Control (TAC) Technical Notes</i>.   
+* Multi-agent Motion Planning from Signal Temporal Logic Specifications
+   Dawei Sun, **Jingkai Chen**, Sayan Mitra, Chuchu Fan.
+  <i> Submitted to IEEE Robotics and Automation Letters (RA-L) and IEEE International Conference on Robotics and Automation (ICRA 2022)</i>.  
 
+
+Publications
+======
 * State-Temporal Decoupling of Multi-Agent Plans under Limited Communication.   
     Yuening Zhang, **Jingkai Chen**, Eric Timmons, Marlyse Reeves, and Brian C. Williams.  
     <i>The Ninth ICAPS Workshop on Planning and Robotics (**PlanRob 2021**)</i>.   
@@ -47,7 +59,7 @@ Publications
 * [Learning Safe Multi-agent Control with Decentralized Neural Barrier Certificates](https://openreview.net/pdf?id=P6_q1BRxY8Q).   
     Zengyi Qin, Kaiqing Zhang, Yuxiao Chen, **Jingkai Chen**, and Chuchu Fan.  
     <i>The Nineth International Conference on Learning Representations (**ICLR 2021**)</i>.   
-    [[PDF](https://jkchengh.github.io/files/qin2021learning.pdf)] [[Video](https://youtu.be/qmAaOEIQJo8)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-qin2021learning');">Bibtex</a>]
+    [[PDF](https://jkchengh.github.io/files/qin2021learning.pdf)] [[Demo](https://youtu.be/qmAaOEIQJo8)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-qin2021learning');">Bibtex</a>]
 <div id="bibtex-qin2021learning" style="display:none">
 <pre>@inproceedings{qin2021learning,
   author = {Zengyi Qin and Kaiqing Zhang and Yuxiao Chen and Jingkai Chen and Chuchu Fan},
@@ -59,7 +71,7 @@ Publications
 * [Optimal Mixed Discrete-Continuous Planning for Linear Hybrid Systems](https://dl.acm.org/doi/10.1145/3447928.3456654).       
     **Jingkai Chen**, Brian C. Williams, and Chuchu Fan.  
     <i>The Twenty-Fourth ACM International Conference on Hybrid Systems: Computation and Control (**HSCC 2021**)</i>.   
-   [[PDF](https://jkchengh.github.io/files/chen2021optimal.pdf)] [[Video](https://youtu.be/HZXaehrYaaM)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-chen2021optimal');">Bibtex</a>]
+   [[PDF](https://jkchengh.github.io/files/chen2021optimal.pdf)] [[Talk](https://youtu.be/HZXaehrYaaM)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-chen2021optimal');">Bibtex</a>]
 <div id="bibtex-chen2021optimal" style="display:none">
 <pre>@inproceedings{chen2021optimal,
   author = {Jingkai Chen and Brian C. Williams and Chuchu Fan},
@@ -71,7 +83,7 @@ Publications
 * [Scalable and Safe Multi-Agent Motion Planning with Nonlinear Dynamics and Bounded Disturbances](https://ojs.aaai.org/index.php/AAAI/article/view/17340).    
     **Jingkai Chen**, Jiaoyang Li, Chuchu Fan, and Brian C. Williams.    
     <i>The Thirty-Fifth AAAI Conference on Artificial Intelligence (**AAAI 2021**)</i>.   
-    [[PDF](https://jkchengh.github.io/files/chen2021scalable.pdf)] [[Video](https://youtu.be/VdMTYHTgHt4)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-chen2021scalable');">Bibtex</a>]
+    [[PDF](https://jkchengh.github.io/files/chen2021scalable.pdf)] [[Demo](https://youtu.be/VdMTYHTgHt4)] [[Talk](https://slideslive.com/38948396/scalable-and-safe-multiagent-motion-planning-with-nonlinear-dynamics-and-bounded-disturbances)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-chen2021scalable');">Bibtex</a>]
 <div id="bibtex-chen2021scalable" style="display:none">
 <pre>
 @inproceedings{chen2021scalable,
@@ -84,7 +96,7 @@ Publications
 * [Efficiently Exploring Ordering Problems through Conflict-directed Search](https://ojs.aaai.org//index.php/ICAPS/article/view/3464/3332).               
     **Jingkai Chen**, Cheng Fang, David Wang, Andrew Wang, and Brian C. Williams.    
     <i>The Twenty-Ninth International Conference on Automated Planning and Scheduling (**ICAPS 2019**)</i>.   
-    [[PDF](https://jkchengh.github.io/files/chen2019efficiently.pdf)] [[Video](https://youtu.be/andVn5uQ4Oo)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-chen2019efficiently');">Bibtex</a>]
+    [[PDF](https://jkchengh.github.io/files/chen2019efficiently.pdf)] [[Talk](https://youtu.be/andVn5uQ4Oo)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-chen2019efficiently');">Bibtex</a>]
 <div id="bibtex-chen2019efficiently" style="display:none">
 <pre>
 @inproceedings{chen2019efficiently,
@@ -95,18 +107,6 @@ Publications
   number={1},
   pages={97--105},
   year={2019}
-}
-</pre></div>
-* [Fast Execution of Temporal Plans with Mixed Discrete-Continuous State Constraints](https://dspace.mit.edu/handle/1721.1/122406).               
-    **Jingkai Chen**. <i>Master Thesis</i>.
-    [[PDF](https://jkchengh.github.io/files/chen2019fast.pdf)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-chen2019fast');">Bibtex</a>]
-<div id="bibtex-chen2019fast" style="display:none">
-<pre>
-@masterthesis{chen2019fast,
-  title={Fast execution of temporal plans with mixed discrete-continuous state constraints},
-  author={Chen, Jingkai},
-  year={2019},
-  school={Massachusetts Institute of Technology}
 }
 </pre></div>
 * [RADMAX: Risk and Deadline Aware Planning for Maximum Utility](https://www.aaai.org/ocs/index.php/WS/AAAIW18/paper/viewPDFInterstitial/17324/17091).               
@@ -124,6 +124,20 @@ Publications
 </pre></div>
 
 
+Theses
+======
+* [Fast Execution of Temporal Plans with Mixed Discrete-Continuous State Constraints](https://dspace.mit.edu/handle/1721.1/122406).               
+    **Jingkai Chen**. <i>Master Thesis</i>.
+    [[PDF](https://jkchengh.github.io/files/chen2019fast.pdf)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-chen2019fast');">Bibtex</a>]
+<div id="bibtex-chen2019fast" style="display:none">
+<pre>
+@masterthesis{chen2019fast,
+  title={Fast execution of temporal plans with mixed discrete-continuous state constraints},
+  author={Chen, Jingkai},
+  year={2019},
+  school={Massachusetts Institute of Technology}
+}
+</pre></div>
 
 
 
