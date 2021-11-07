@@ -26,8 +26,8 @@ Preprints
    Zengyi Qin, Dawei Sun, **Jingkai Chen**, Yuxiao Chen, Kaiqing Zhang, Susmit Jha, Chuchu Fan.
     <i> Submitted to IEEE Transactions on Automatic Control (TAC) Technical Notes</i>.   
 * Multi-agent Motion Planning from Signal Temporal Logic Specifications.
-  Dawei Sun, **Jingkai Chen**, Sayan Mitra, Chuchu Fan.
-  <i> Submitted to IEEE Robotics and Automation Letters (RA-L) and IEEE International Conference on Robotics and Automation (ICRA 2022)</i>.  
+    Dawei Sun, **Jingkai Chen**, Sayan Mitra, Chuchu Fan.
+    <i> Submitted to IEEE Robotics and Automation Letters (RA-L) and IEEE International Conference on Robotics and Automation (ICRA 2022)</i>.  
 
 
 Publications
