@@ -22,7 +22,7 @@ Preprints
 * **Multi-Agent Path Finding for Precedence-Constrained Goal Sequences**.   
     Han Zhang *, **Jingkai Chen** *, Jiaoyang Li, Brian C. Williams, Sven Koenig.   
     <i> Submitted to International Joint Conference on Autonomous Agents and Multi-agent Systems (AAMAS 2022)</i>.   
-* **Large-scale Multi-agent Safe Control with Neural Contraction Metrics and Barrier Certificates**.   
+* **Large-scale Multi-agent Safe Control with Neural Contraction Metrics and Barrier Certificates**.             
    Zengyi Qin, Dawei Sun, **Jingkai Chen**, Yuxiao Chen, Kaiqing Zhang, Susmit Jha, Chuchu Fan.
     <i> Submitted to IEEE Transactions on Automatic Control (TAC) Technical Notes</i>.   
 * **Multi-agent Motion Planning from Signal Temporal Logic Specifications**.
