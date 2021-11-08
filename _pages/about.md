@@ -15,24 +15,24 @@ Before MIT, I obtained my B.E. degree in Control Science and Engineering from Ch
 
 Preprints
 ======
-* Cooperative Task and Motion Planning for Multi-Arm Assembly Systems.   
+* **Cooperative Task and Motion Planning for Multi-Arm Assembly Systems**.   
     **Jingkai Chen**, Jiaoyang Li *, Yijiang Huang *, Caelan Garrett, Dawei Sun, Chuchu Fan, Andreas Hofmann, Caitlin Mueller, Sven Koenig, Brian C. Williams.   
     <i> Submitted to IEEE Robotics and Automation Letters (RA-L) and IEEE International Conference on Robotics and Automation (ICRA 2022)</i>.   
     [[PDF](https://jkchengh.github.io/files/chen2022cooperative.pdf)] [[Demo](https://youtube.com/playlist?list=PLPE70_UHUxDJhtmm7cL69fGMerDTnTZJj)]
-* Multi-Agent Path Finding for Precedence-Constrained Goal Sequences.   
+* **Multi-Agent Path Finding for Precedence-Constrained Goal Sequences**.   
     Han Zhang *, **Jingkai Chen** *, Jiaoyang Li, Brian C. Williams, Sven Koenig.   
     <i> Submitted to International Joint Conference on Autonomous Agents and Multi-agent Systems (AAMAS 2022)</i>.   
-* Large-scale Multi-agent Safe Control with Neural Contraction Metrics and Barrier Certificates.   
+* **Large-scale Multi-agent Safe Control with Neural Contraction Metrics and Barrier Certificates**.   
    Zengyi Qin, Dawei Sun, **Jingkai Chen**, Yuxiao Chen, Kaiqing Zhang, Susmit Jha, Chuchu Fan.
     <i> Submitted to IEEE Transactions on Automatic Control (TAC) Technical Notes</i>.   
-* Multi-agent Motion Planning from Signal Temporal Logic Specifications.
+* **Multi-agent Motion Planning from Signal Temporal Logic Specifications**.
     Dawei Sun, **Jingkai Chen**, Sayan Mitra, Chuchu Fan.
     <i> Submitted to IEEE Robotics and Automation Letters (RA-L) and IEEE International Conference on Robotics and Automation (ICRA 2022)</i>.  
 
 
 Publications
 ======
-* State-Temporal Decoupling of Multi-Agent Plans under Limited Communication.   
+* **State-Temporal Decoupling of Multi-Agent Plans under Limited Communication**.   
     Yuening Zhang, **Jingkai Chen**, Eric Timmons, Marlyse Reeves, and Brian C. Williams.  
     <i>The Ninth ICAPS Workshop on Planning and Robotics (**PlanRob 2021**)</i>.   
     [[PDF](https://jkchengh.github.io/files/zhang2021state.pdf)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-zhang2021state');">Bibtex</a>]
