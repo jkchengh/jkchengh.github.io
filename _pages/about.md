@@ -19,26 +19,43 @@ Preprints
     **Jingkai Chen**, Jiaoyang Li *, Yijiang Huang *, Caelan Garrett, Dawei Sun, Chuchu Fan, Andreas Hofmann, Caitlin Mueller, Sven Koenig, Brian C. Williams.   
     <i> Submitted to IEEE Robotics and Automation Letters (RA-L) and IEEE International Conference on Robotics and Automation (ICRA 2022)</i>.   
     [[PDF](https://jkchengh.github.io/files/chen2022cooperative.pdf)] [[Demo](https://youtube.com/playlist?list=PLPE70_UHUxDJhtmm7cL69fGMerDTnTZJj)]
-* **Multi-Agent Path Finding for Precedence-Constrained Goal Sequences**.   
-    Han Zhang *, **Jingkai Chen** *, Jiaoyang Li, Brian C. Williams, Sven Koenig.   
-    <i> Submitted to International Joint Conference on Autonomous Agents and Multi-agent Systems (AAMAS 2022)</i>.   
+
 * **Large-scale Multi-agent Safe Control with Neural Contraction Metrics and Barrier Certificates**.             
    Zengyi Qin, Dawei Sun, **Jingkai Chen**, Yuxiao Chen, Kaiqing Zhang, Susmit Jha, Chuchu Fan.
     <i> Submitted to IEEE Transactions on Automatic Control (TAC) Technical Notes</i>.   
-* **Multi-agent Motion Planning from Signal Temporal Logic Specifications**.
-    Dawei Sun, **Jingkai Chen**, Sayan Mitra, Chuchu Fan.
-    <i> Submitted to IEEE Robotics and Automation Letters (RA-L) and IEEE International Conference on Robotics and Automation (ICRA 2022)</i>.  
 
 
 Publications
 ======
+* **Multi-agent Motion Planning from Signal Temporal Logic Specifications**.
+    Dawei Sun, **Jingkai Chen**, Sayan Mitra, Chuchu Fan.
+    <i> IEEE Robotics and Automation Letters (RA-L)</i>.
+    [[PDF](https://jkchengh.github.io/files/sun2022multi.pdf)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-sun2022multi');">Bibtex</a>]
+<div id="bibtex-sun2022multi" style="display:none">
+<pre>@inproceedings{sun2022multi,
+  author = {Dawei Sun, Jingkai Chen, Sayan Mitra, Chuchu Fan},
+  title = {Multi-agent Motion Planning from Signal Temporal Logic Specifications},
+  booktitle = {IEEE Robotics and Automation Letters (RA-L)},
+  year = {2022}
+}   
+* **Multi-Agent Path Finding for Precedence-Constrained Goal Sequences**.   
+    Han Zhang *, **Jingkai Chen** *, Jiaoyang Li, Brian C. Williams, Sven Koenig.
+    <i> International Joint Conference on Autonomous Agents and Multi-agent Systems (AAMAS 2022)</i>.  
+    [[PDF](https://jkchengh.github.io/files/zhang2022multi.pdf)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-zhang2022multi');">Bibtex</a>]
+<div id="bibtex-zhang2022multi" style="display:none">
+<pre>@inproceedings{zhang2022multi,
+  author = {Han Zhang, Jingkai Chen, Jiaoyang Li, Brian C. Williams, Sven Koenig},
+  title = {Multi-Agent Path Finding for Precedence-Constrained Goal Sequences},
+  booktitle = {Proceedings of International Joint Conference on Autonomous Agents and Multi-agent Systems (AAMAS 2022)},
+  year = {2022}
+} 
 * **State-Temporal Decoupling of Multi-Agent Plans under Limited Communication**.   
     Yuening Zhang, **Jingkai Chen**, Eric Timmons, Marlyse Reeves, and Brian C. Williams.  
     <i>The Ninth ICAPS Workshop on Planning and Robotics (**PlanRob 2021**)</i>.   
     [[PDF](https://jkchengh.github.io/files/zhang2021state.pdf)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-zhang2021state');">Bibtex</a>]
 <div id="bibtex-zhang2021state" style="display:none">
 <pre>@inproceedings{zhang2021state,
-  author = {Yuening Zhang, Jingkai Chen, Eric Timmons, Marlyse Reeves, Brian C. Wiiliams},
+  author = {Yuening Zhang, Jingkai Chen, Eric Timmons, Marlyse Reeves, Brian C. Williams},
   title = {State-Temporal Decoupling of Multi-Agent Plans under Limited Communication},
   booktitle = {Proceedings of the Ninth ICAPS Workshop on Planning and Robotics (PlanRob 2021)},
   year = {2021}
@@ -50,7 +67,7 @@ Publications
     [[PDF](https://jkchengh.github.io/files/chen2021generalized.pdf)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-chen2021generalized');">Bibtex</a>]
 <div id="bibtex-chen2021generalized" style="display:none">
 <pre>@inproceedings{chen2021generalized,
-  author = {Jingkai Chen, Yuening Zhang, Cheng Fang, Brian C. Wiiliams},
+  author = {Jingkai Chen, Yuening Zhang, Cheng Fang, Brian C. Williams},
   title = {Generalized Conflict-directed Search for Optimal Ordering Problems},
   booktitle = {Proceedings of the Fourteenth International Symposium on Combinatorial Search (SoCS 2021)},
   year = {2021}
