@@ -24,7 +24,6 @@ Preprints
    Zengyi Qin, Dawei Sun, **Jingkai Chen**, Yuxiao Chen, Kaiqing Zhang, Susmit Jha, Chuchu Fan.
     <i> Submitted to IEEE Transactions on Automatic Control (TAC) Technical Notes</i>.   
 
-
 Publications
 ======
 * **Multi-agent Motion Planning from Signal Temporal Logic Specifications**.
@@ -37,7 +36,8 @@ Publications
   title = {Multi-agent Motion Planning from Signal Temporal Logic Specifications},
   booktitle = {IEEE Robotics and Automation Letters (RA-L)},
   year = {2022}
-}   
+} 
+</pre></div>  
 * **Multi-Agent Path Finding for Precedence-Constrained Goal Sequences**.   
     Han Zhang *, **Jingkai Chen** *, Jiaoyang Li, Brian C. Williams, Sven Koenig.
     <i> International Joint Conference on Autonomous Agents and Multi-agent Systems (AAMAS 2022)</i>.  
@@ -48,7 +48,8 @@ Publications
   title = {Multi-Agent Path Finding for Precedence-Constrained Goal Sequences},
   booktitle = {Proceedings of International Joint Conference on Autonomous Agents and Multi-agent Systems (AAMAS 2022)},
   year = {2022}
-} 
+}
+</pre></div>
 * **State-Temporal Decoupling of Multi-Agent Plans under Limited Communication**.   
     Yuening Zhang, **Jingkai Chen**, Eric Timmons, Marlyse Reeves, and Brian C. Williams.  
     <i>The Ninth ICAPS Workshop on Planning and Robotics (**PlanRob 2021**)</i>.   
