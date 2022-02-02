@@ -34,7 +34,7 @@ Publications
 <pre>@inproceedings{sun2022multi,
   author = {Dawei Sun, Jingkai Chen, Sayan Mitra, Chuchu Fan},
   title = {Multi-agent Motion Planning from Signal Temporal Logic Specifications},
-  booktitle = {IEEE Robotics and Automation Letters (RA-L)},
+  booktitle = {IEEE Robotics and Automation Letters (RA-L) and IEEE International Conference on Robotics and Automation (ICRA 2022)},
   year = {2022}
 } 
 </pre></div>  
