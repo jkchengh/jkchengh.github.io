@@ -138,21 +138,6 @@ Publications
 </pre></div>
 
 
-Theses
-======
-* [Fast Execution of Temporal Plans with Mixed Discrete-Continuous State Constraints](https://dspace.mit.edu/handle/1721.1/122406).               
-    **Jingkai Chen**. <i>Master Thesis</i>.
-    [[PDF](https://jkchengh.github.io/files/chen2019fast.pdf)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-chen2019fast');">Bibtex</a>]
-<div id="bibtex-chen2019fast" style="display:none">
-<pre>
-@masterthesis{chen2019fast,
-  title={Fast execution of temporal plans with mixed discrete-continuous state constraints},
-  author={Chen, Jingkai},
-  year={2019},
-  school={Massachusetts Institute of Technology}
-}
-</pre></div>
-
 
 
 
