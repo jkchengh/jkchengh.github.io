@@ -8,9 +8,9 @@ redirect_from:
   - /about.html
 ---
 
-I am a sixth-year Ph.D. student at MIT, advised by [Prof. Brian C. Williams](https://aeroastro.mit.edu/brian-c-williams). My research interests are primarily in the areas of robotics, AI planning, and multi-agent systems with applications in interconnected robotic systems for manufacturing, logistics, and field operation.
+I am an Applied Scientist at Amazon Robotics (North Reading). My research interests are primarily in the areas of robotics, AI planning, and multi-agent systems with applications in interconnected robotic systems for manufacturing, logistics, and field operation.
 
-Before MIT, I obtained my B.E. degree in Control Science and Engineering from Chu Kochen Honors College at Zhejiang University in 2016. Previously, I was furtunate to work with [Dr. Dimitrios Pantazis](https://mcgovern.mit.edu/profile/dimitrios-pantazis/) at MIT McGovern Institute of Brain Research, [Prof. Mario Gerla](https://en.wikipedia.org/wiki/Mario_Gerla) at UCLA Network Research Lab, and [Prof. Jiming Chen](https://person.zju.edu.cn/en/jmchen) and [Prof. Peng Cheng](https://person.zju.edu.cn/en/cp) at Zhejiang University NeSC Lab.
+I obtained my Ph.D. degree at Massachusetts Institute of Technology in 2022, advised by Prof. [Brian C. Williams](https://www.csail.mit.edu/person/brian-williams). I obtained my B.E. degree in Control Science and Engineering from Chu Kochen Honors College at Zhejiang University in 2016. Previously, I was furtunate to work with [Dr. Dimitrios Pantazis](https://mcgovern.mit.edu/profile/dimitrios-pantazis/) at MIT McGovern Institute of Brain Research, [Prof. Mario Gerla](https://en.wikipedia.org/wiki/Mario_Gerla) at UCLA Network Research Lab, and [Prof. Jiming Chen](https://person.zju.edu.cn/en/jmchen) and [Prof. Peng Cheng](https://person.zju.edu.cn/en/cp) at Zhejiang University NeSC Lab.
 
 
 Preprints
