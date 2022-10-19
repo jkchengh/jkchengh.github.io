@@ -23,8 +23,8 @@ Preprints
 Publications
 ======
 * [Learning-based Motion Planning in Dynamic Environments Using GNNs and Temporal Encoding](https://arxiv.org/abs/2210.08408).
-   Ruipeng Zhang, Chenning Yu, **Jingkai Chen**, Chuchu Fan, Sicun Gao.
-    <i>36th Conference on Neural Information Processing Systems (NeurIPS 2022)</i>.
+    Ruipeng Zhang, Chenning Yu, **Jingkai Chen**, Chuchu Fan, Sicun Gao.
+    <i>36th Conference on Neural Information Processing Systems (**NeurIPS 2022**)</i>.
     [[PDF](https://jkchengh.github.io/files/zhang2022multi.pdf)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-zhang2022learning');">Bibtex</a>]
 <div id="bibtex-zhang2022learning" style="display:none">
 <pre>@inproceedings{zhang2022learning,
@@ -35,8 +35,8 @@ Publications
 } 
 </pre></div>  
 * [Multi-agent Motion Planning from Signal Temporal Logic Specifications](https://ieeexplore.ieee.org/document/9696363).
-   Dawei Sun, **Jingkai Chen**, Sayan Mitra, Chuchu Fan.
-    <i> IEEE Robotics and Automation Letters (RA-L)</i>.
+    Dawei Sun, **Jingkai Chen**, Sayan Mitra, Chuchu Fan.
+    <i> IEEE Robotics and Automation Letters (**RA-L**)</i>.
     [[PDF](https://jkchengh.github.io/files/sun2022multi.pdf)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-sun2022multi');">Bibtex</a>]
 <div id="bibtex-sun2022multi" style="display:none">
 <pre>@inproceedings{sun2022multi,
