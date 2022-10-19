@@ -25,9 +25,9 @@ Publications
 * [Learning-based Motion Planning in Dynamic Environments Using GNNs and Temporal Encoding](https://arxiv.org/abs/2210.08408).
    Ruipeng Zhang, Chenning Yu, **Jingkai Chen**, Chuchu Fan, Sicun Gao.
     <i>2022 Conference on Neural Information Processing Systems (NeurIPS 2022)</i>.
-    [[PDF](https://jkchengh.github.io/files/zhang2022multi.pdf)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-zhang2022multi');">Bibtex</a>]
-<div id="bibtex-zhang2022multi" style="display:none">
-<pre>@inproceedings{zhang2022multi,
+    [[PDF](https://jkchengh.github.io/files/zhang2022multi.pdf)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-zhang2022learning');">Bibtex</a>]
+<div id="bibtex-zhang2022learning" style="display:none">
+<pre>@inproceedings{zhang2022learning,
   author = {Ruipeng Zhang, Chenning Yu, Jingkai Chen, Chuchu Fan, Sicun Gao},
   title = {Learning-based Motion Planning in Dynamic Environments Using GNNs and Temporal Encoding},
   booktitle = {2022 Conference on Neural Information Processing Systems (NeurIPS 2022))},
