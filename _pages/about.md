@@ -22,8 +22,8 @@ Preprints
 
 Publications
 ======
-* **Multi-agent Motion Planning from Signal Temporal Logic Specifications**.
-    Dawei Sun, **Jingkai Chen**, Sayan Mitra, Chuchu Fan.
+* [Multi-agent Motion Planning from Signal Temporal Logic Specifications](https://ieeexplore.ieee.org/document/9696363).
+   Dawei Sun, **Jingkai Chen**, Sayan Mitra, Chuchu Fan.
     <i> IEEE Robotics and Automation Letters (RA-L)</i>.
     [[PDF](https://jkchengh.github.io/files/sun2022multi.pdf)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-sun2022multi');">Bibtex</a>]
 <div id="bibtex-sun2022multi" style="display:none">
@@ -34,7 +34,7 @@ Publications
   year = {2022}
 } 
 </pre></div>  
-* **Multi-Agent Path Finding for Precedence-Constrained Goal Sequences**.   
+* [Multi-Agent Path Finding for Precedence-Constrained Goal Sequences](https://dl.acm.org/doi/abs/10.5555/3535850.3536013).   
     Han Zhang *, **Jingkai Chen** *, Jiaoyang Li, Brian C. Williams, Sven Koenig.
     <i> International Joint Conference on Autonomous Agents and Multi-agent Systems (**AAMAS 2022**)</i>.  
     [[PDF](https://jkchengh.github.io/files/zhang2022multi.pdf)] [<a href="javascript:void(0)" onclick="(function(target, id) { if ($('#' + id).css('display') == 'block') { $('#' + id).hide('fast'); $(target).text('Bibtex') } else { $('#' + id).show('fast'); $(target).text('Bibtex▲') } })(this, 'bibtex-zhang2022multi');">Bibtex</a>]
