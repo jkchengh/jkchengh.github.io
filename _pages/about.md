@@ -14,7 +14,7 @@ I obtained my Ph.D. degree at Massachusetts Institute of Technology in 2022, adv
 
 Products
 ======
-I architected, designed, implemented, tested, and deployed a novel [multi-robot routing system](https://youtu.be/w_rxqhM2MFE?feature=shared) for Symbotic's customers (e.g., Walmart).
+I architected, designed, and implemented a novel multi-robot routing system, and deployed it in Walmart's high-density storage [warehouses](https://youtu.be/w_rxqhM2MFE?feature=shared).
 
 Preprints
 ======
