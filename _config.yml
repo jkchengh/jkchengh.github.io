@@ -7,8 +7,7 @@
 
 # Site Settings
 locale                   : "en-US"
-title                    : "Jingkai Chen
-"
+title                    : "Jingkai Chen"
 title_separator          : "-"
 name                     : &name "Jingkai Chen"
 description              : &description "personal description"
@@ -83,7 +82,7 @@ analytics:
 author:
   name             : "Jingkai Chen"
   avatar           : "profile.png"
-  bio              : 
+  bio              : " "
   location         : "Wilmington, MA"
   employer         :
   pubmed           : 
