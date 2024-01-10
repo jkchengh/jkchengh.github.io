@@ -82,8 +82,8 @@ analytics:
 author:
   name             : "Jingkai Chen"
   avatar           : "profile.png"
-  bio              : "Applied Scientist at Amazon Robotics"
-  location         : "North Reading, MA"
+  bio              : 
+  location         : "Wilmington, MA"
   employer         :
   pubmed           : 
   googlescholar    : "https://scholar.google.com/citations?user=FK-l688AAAAJ&hl=en&oi=ao"
