@@ -8,9 +8,13 @@ redirect_from:
   - /about.html
 ---
 
-I am a Principal Robotics Engineer at Symbotic and lead the research and development in [Multi-robot Routing](https://youtu.be/w_rxqhM2MFE?feature=shared). My research interests are primarily in the areas of robotics, AI planning, and multi-agent systems with applications in interconnected robotic systems for manufacturing, logistics, and field operation.
+I am a Principal Robotics Engineer at Symbotic and lead the research and development in Multi-robot Routing. My research interests are primarily in the areas of robotics, AI planning, and multi-agent systems with applications in interconnected robotic systems for manufacturing, logistics, and field operation.
 
 I obtained my Ph.D. degree at Massachusetts Institute of Technology in 2022, advised by [Prof. Brian C. Williams](https://www.csail.mit.edu/person/brian-williams). Before joining Symbotic, I was an Applied Scientist on the Manipulation R&D team at Amazon Robotics. 
+
+Products
+======
+I architected, designed, implemented, tested, and deployed a novel [multi-robot routing system](https://youtu.be/w_rxqhM2MFE?feature=shared) for Symbotic's customers (e.g., Walmart).
 
 Preprints
 ======
