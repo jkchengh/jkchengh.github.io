@@ -8,9 +8,9 @@ redirect_from:
   - /about.html
 ---
 
-I am a Principal Robotics Engineer at Symbotic (Wilmington, MA). I lead the research and development in multi-robot routing. I architected, designed, implemented, tested, and deployed a novel multi-robot routing system that is currently deployed in the warehouses of Symbotic's customers (e.g., Walmart) [Link](https://youtu.be/w_rxqhM2MFE?feature=shared). My research interests are primarily in the areas of robotics, AI planning, and multi-agent systems with applications in interconnected robotic systems for manufacturing, logistics, and field operation.
+I am a Principal Robotics Engineer at Symbotic and lead the research and development in [multi-robot planning](https://youtu.be/w_rxqhM2MFE?feature=shared). My research interests are primarily in the areas of robotics, AI planning, and multi-agent systems with applications in interconnected robotic systems for manufacturing, logistics, and field operation.
 
-I obtained my Ph.D. degree at Massachusetts Institute of Technology in 2022, advised by [Prof. Brian C. Williams](https://www.csail.mit.edu/person/brian-williams). I obtained my B.E. degree in Control Science and Engineering from Chu Kochen Honors College at Zhejiang University in 2016. Previously, I was fortunate to work with [Dr. Dimitrios Pantazis](https://mcgovern.mit.edu/profile/dimitrios-pantazis/) at MIT McGovern Institute of Brain Research, [Prof. Mario Gerla](https://en.wikipedia.org/wiki/Mario_Gerla) at UCLA Network Research Lab, and [Prof. Jiming Chen](https://person.zju.edu.cn/en/jmchen) and [Prof. Peng Cheng](https://person.zju.edu.cn/en/cp) at Zhejiang University NeSC Lab. Before joining Symbotic, I was an Applied Scientist at Amazon Robotics (North Reading, MA) on the Manipulation Research and Development team. 
+I obtained my Ph.D. degree at Massachusetts Institute of Technology in 2022, advised by [Prof. Brian C. Williams](https://www.csail.mit.edu/person/brian-williams). Before joining Symbotic, I was an Applied Scientist on the Manipulation R&D team at Amazon Robotics. 
 
 Preprints
 ======
