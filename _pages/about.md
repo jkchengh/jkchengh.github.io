@@ -14,7 +14,7 @@ I obtained my Ph.D. degree at Massachusetts Institute of Technology in 2022, adv
 
 Products
 ======
-I architected, designed, and implemented a novel multi-robot routing system, and deployed it in Walmart's high-density storage [warehouses](https://youtu.be/w_rxqhM2MFE?feature=shared).
+I architected, designed, and implemented a novel multi-robot routing system, and deployed it in Walmart's [high-density storage warehouses](https://youtu.be/w_rxqhM2MFE?feature=shared).
 
 Preprints
 ======
